@@ -3,7 +3,7 @@ window.APP =
 
   setBindings: ->
     $( "#build-reveal" ).click ->
-      $( "#build-reveal" ).toggleClass( "bh-collapsed" )
+      $( "#build-header" ).toggleClass "bh-collapsed"
 
   methodName: ->
 
