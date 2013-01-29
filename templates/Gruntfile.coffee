@@ -15,6 +15,10 @@ module.exports = (grunt) ->
         files: "images/*"
         tasks: "images"
 
+      fonts:
+        files: "fonts/*"
+        tasks: "fonts"
+
       partials:
         files: "partials/*"
         tasks: "partials"
@@ -86,6 +90,7 @@ module.exports = (grunt) ->
       stylesheets: "dist/css/*"
       javascript: "dist/js/*"
       images: "dist/images/*"
+      fonts: "dist/fonts/*"
 
     styleguide:
       dist:
@@ -97,6 +102,8 @@ module.exports = (grunt) ->
         command: "docco -o docs/js/ js/*.js js/*.coffee"
       copyImages:
         command: "mkdir -p dist/images; cp -R images/ dist/images/"
+      copyFonts:
+        command: "mkdir -p dist/fonts; cp -R fonts/ dist/fonts/"
 
     jasmine:
       src: "dist/**/*.js"
@@ -128,6 +135,9 @@ module.exports = (grunt) ->
   # Clean and copy images
   grunt.registerTask "images", [ "clean:images", "exec:copyImages" ]
 
+  # Clean and copy fonts
+  grunt.registerTask "fonts", [ "clean:fonts", "exec:copyFonts" ]
+
   # Generate documentation
   grunt.registerTask "docs", [ "styleguide", "exec:docco" ]
 
@@ -135,4 +145,4 @@ module.exports = (grunt) ->
   grunt.registerTask "prod", [ "modernizr", "default" ]
 
   # Default task
-  grunt.registerTask "default", [ "partials", "javascript", "stylesheets", "images" ]
+  grunt.registerTask "default", [ "partials", "javascript", "stylesheets", "images", "fonts" ]
