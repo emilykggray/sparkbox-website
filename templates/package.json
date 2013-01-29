@@ -1,5 +1,5 @@
 {
-  "name": "Project-Name",
+  "name": "sparkbox-website",
   "version": "0.1.0",
   "devDependencies": {
     "grunt": "~0.4",
