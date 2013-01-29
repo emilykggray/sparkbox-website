@@ -21,4 +21,4 @@ window.APP =
 
 $(document).ready ->
   UTIL.loadEvents
-  APP.setBindings
+  APP.setBindings()
