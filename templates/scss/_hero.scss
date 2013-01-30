@@ -1,0 +1,203 @@
+/* Windows Metro Snap mode fix */
+@-ms-viewport{
+  width: device-width;
+}
+
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.screen-reader-text {
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+}
+
+[data-icon]:before {
+  font-family: sb-icon-font;
+  content: attr(data-icon);
+  speak: none;
+}
+
+/*
+Examples
+
+Breakpoint - Non-media query browsers DO get styles inside media query:
+.hero{
+  color: red;
+  @include breakpoint(14.5em, $no-query:$nomq){
+    color: blue;
+  }
+}
+
+Breakpoint - Non-media query browsers do NOT get styles inside media query:
+.hero{
+  color: red;
+  @include breakpoint(14.5em){
+    color: blue;
+  }
+}
+*/
+
+
+// Chill out, colors will be extracted and moved to the _colors file
+
+$dropdown-transition-duration: 0.4s;
+
+.hero-wrapper {
+  @include transition( max-height $dropdown-transition-duration );
+  overflow: hidden;
+  background: #232323;
+  float: left;
+  width: 100%;
+
+  @include breakpoint( 45em, $no-query: $nomq ){
+    border: 30px solid #575757;
+  }
+}
+
+.hero-inner-wrapper {
+  // this class is only for limiting width.
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.hero {
+  // hero
+  // we translate this thing to show dropdown animation
+  @include transition( all $dropdown-transition-duration );
+  float: left;
+  width: 100%;
+  background: chartreuse;
+  position: relative;
+}
+
+.hero-teaser {
+  // first "slide" of hero.
+  // this slides down when .hero-more is revealed
+  background: #242424;
+  padding: 0 30px 30px;
+  text-align: center;
+  
+  .ht-header {
+    // ht-header = hero-teaser-header
+    @extend %no-mp;
+    padding-bottom: 1em;
+    color: #cbf8ff;
+    text-transform: uppercase;
+    font-size: 1.2em;
+    letter-spacing: 0.1em;
+
+    @include breakpoint( 25em ){
+      font-size: 2em;
+    }
+  }
+  > p {
+    @extend %no-mp;
+    color: #73c5d2;
+    line-height: 1.9;
+    font-size: 0.9em;
+  }
+}
+
+.chain-icon {
+  @include transition( all $dropdown-transition-duration );
+  color: #73c5d2;
+  display: inline-block;
+  cursor: pointer;
+  position: relative;
+
+  [data-icon] {
+    font-size: 80px;
+    font-family: sb-icon-font;
+    //font-size: 150px;
+  }
+  .chain-left {
+    @include transform( translate3d( 0, 0, 0 ) );
+    @include transition( all, 0.2s );
+    display: inline-block;
+  }
+  .chain-right {
+    @include transform( translate3d( 0, 0, 0 ) );
+    @include transition( all, 0.2s );
+    display: inline-block;
+    margin-left: -0.56em;
+  }
+  .more-revealed &, &:hover {
+    // chain when more is revealed,
+    // and also when it's hovered
+    .chain-left {
+      @include transform( translate3d( -0.1em, 0.05em, 0 ) rotate( -6deg ) );
+    }
+    .chain-right {
+      @include transform( translate3d( 0.1em, 0.05em, 0 ) rotate( 6deg ) );
+    }
+  }
+  .more-revealed & {
+    top: -9px; // to center icon when more is revealed
+  }
+}
+
+.hero-more {
+  // second "slide" of hero.
+  // this is hidden initially,
+  // but slides into view when revealed
+  background: #cbf8ff;
+  color: #265e67;
+
+  .js & {
+    position: absolute;
+    bottom: 100%; // this moves it up, just out of view
+    left: 0;
+    width: 100%;
+  }
+
+  .hero-seal{
+    background-color: #a3eaf5;
+    padding: 30px;
+
+    @include breakpoint( 35em ){
+      position: absolute;
+      width: 50%;
+      height: 100%;
+    }
+  }
+  .image-wrapper {
+    position: relative;
+    width: 70%;
+    height: 0;
+    padding-bottom: 70% * 1.01826484;
+    margin: 0 auto;
+  }
+  .image {
+    background: url(/images/sparkbox-seal.png) no-repeat; // REPLACE WITH SVG
+    background-size: 100%;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+
+  @include breakpoint( 35em ) {
+    position: relative;
+    min-height: 17em;
+  }
+}
+
+.hero-more-text {
+  padding: 30px;
+
+  p {
+    @extend %no-mp;
+    line-height: 1.9;
+    font-size: 0.9em;
+  }
+  a {
+    color: inherit;
+  }
+
+  @include breakpoint( 35em ){
+    margin-left: 50%;
+  }
+}
