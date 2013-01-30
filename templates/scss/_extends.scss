@@ -20,3 +20,12 @@
 //   color: gray;
 //   background: darkgray;
 // }
+
+%no-mp {
+  margin: 0;
+  padding: 0;
+}
+
+%hidden-text {
+  @include hide-text;
+}

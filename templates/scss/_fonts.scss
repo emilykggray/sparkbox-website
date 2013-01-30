@@ -1,0 +1,10 @@
+// this is about the most bulletproof way to define a font family
+// http://paulirish.com/2009/bulletproof-font-face-implementation-syntax/
+@font-face {
+  font-family: 'sb-icon-font';
+  src: url('/fonts/sb-icon-font.eot');
+  src: local('☺'), 
+    url('/fonts/sb-icon-font.woff') format('woff'), 
+    url('/fonts/sb-icon-font.ttf') format('truetype'), 
+    url('/fonts/sb-icon-font.svg#icomoon') format('svg');
+}
