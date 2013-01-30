@@ -22,10 +22,11 @@ window.APP =
 
       heroMoreHeight = $heroMore.outerHeight()
       heroTeaserHeight = $heroTeaser.outerHeight()
-      iconHeight = $icon.outerHeight()
 
       if $slider.hasClass "more-revealed"
-        newParentHeight = heroMoreHeight + iconHeight
+        iconHeight = $icon.height()
+        iconOffset = iconHeight * .4
+        newParentHeight = heroMoreHeight + iconHeight - iconOffset
 
         # set proper parent height
         $parent.height( newParentHeight )
