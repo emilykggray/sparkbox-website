@@ -88,7 +88,7 @@ $dropdown-transition-duration: 0.4s;
     // ht-header = hero-teaser-header
     @extend %no-mp;
     padding-bottom: 1em;
-    color: #cbf8ff;
+    color: #e9fcff;
     text-transform: uppercase;
     font-size: 1.2em;
     letter-spacing: 0.1em;
@@ -96,12 +96,18 @@ $dropdown-transition-duration: 0.4s;
     @include breakpoint( 25em ){
       font-size: 2em;
     }
+    @include breakpoint( 55em ){
+      font-size: 3.5em;
+    }
   }
   > p {
     @extend %no-mp;
-    color: #73c5d2;
+    @extend %type-serif;
+    color: #a3eaf5;
     line-height: 1.9;
-    font-size: 0.9em;
+    font-size: 1.1em;
+    max-width: 33em;
+    margin: 0 auto;
   }
 }
 
@@ -205,8 +211,9 @@ $dropdown-transition-duration: 0.4s;
 
   p {
     @extend %no-mp;
+    @extend %type-serif;
     line-height: 1.9;
-    font-size: 0.9em;
+    font-size: 1.1em;
   }
   a {
     color: inherit;

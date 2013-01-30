@@ -29,3 +29,7 @@
 %hidden-text {
   @include hide-text;
 }
+
+%type-serif {
+  font-family: museo_slab_500regular, serif;
+}
