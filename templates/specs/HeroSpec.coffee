@@ -4,7 +4,7 @@ describe "This App", ->
 
     beforeEach ->
       affix( ".hero .chain-icon" )
-      SPB.init()
+      APP.init()
 
     it "should exist", ->
       expect( $( ".hero" ).length).toEqual 1
