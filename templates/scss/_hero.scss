@@ -71,7 +71,6 @@ $dropdown-transition-duration: 0.4s;
   float: left;
   width: 100%;
   background: chartreuse;
-  position: relative;
 }
 
 .hero-teaser {
@@ -80,6 +79,10 @@ $dropdown-transition-duration: 0.4s;
   background: #242424;
   padding: 0 30px 30px;
   text-align: center;
+
+  @include breakpoint( 40em ){
+    padding: 0 50px 50px;
+  }
   
   .ht-header {
     // ht-header = hero-teaser-header
@@ -136,7 +139,19 @@ $dropdown-transition-duration: 0.4s;
     }
   }
   .more-revealed & {
-    top: -9px; // to center icon when more is revealed
+    margin-top: -30px; // to center icon when more is revealed
+    margin-bottom: 20px; // moves text below out of the way
+
+  }
+  @include breakpoint( 40em ){
+    margin-top: -20px;
+
+    [data-icon] {
+      font-size: 140px;
+    }
+    .more-revealed & {
+      margin-top: -50px;
+    }
   }
 }
 

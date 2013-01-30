@@ -8,3 +8,13 @@
     url('/fonts/sb-icon-font.ttf') format('truetype'), 
     url('/fonts/sb-icon-font.svg#icomoon') format('svg');
 }
+
+@font-face {
+  font-family: 'museo_slab_500regular';
+  src: url('/fonts/museo_slab_500-webfont.eot');
+  src: url('/fonts/museo_slab_500-webfont.eot?#iefix') format('embedded-opentype'),
+  url('/fonts/museo_slab_500-webfont.woff') format('woff'),
+  url('/fonts/museo_slab_500-webfont.ttf') format('truetype'),
+  url('/fonts/museo_slab_500-webfont.svg#museo_slab_500regular') format('svg');
+}
+
