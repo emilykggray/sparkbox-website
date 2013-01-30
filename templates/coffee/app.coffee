@@ -29,7 +29,7 @@ window.APP =
         newParentHeight = heroMoreHeight + iconHeight - iconOffset
 
         # set proper parent height
-        $parent.height( newParentHeight )
+        $parent.height newParentHeight
 
         # slide to correct view
         $slider.css( "-webkit-transform", "translate3d( 0, #{heroMoreHeight}px, 0 )" )
@@ -41,6 +41,7 @@ window.APP =
 
         # slide to correct view
         $slider.css( "-webkit-transform", "translate3d( 0, 0, 0 )" )
+
 
 $(document).ready ->
   UTIL.loadEvents
