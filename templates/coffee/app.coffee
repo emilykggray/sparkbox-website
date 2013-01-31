@@ -3,16 +3,35 @@ window.APP =
 
   init: ->
     @setBindings()
+    @hero.init()
 
   setBindings: ->
     $( "#build-reveal" ).click ->
       $( "#build-header" ).toggleClass "bh-collapsed"
 
     $(".chain-icon").on "click", ->
-      APP.hero.toggleHero()
+      APP.hero.toggle()
 
   hero:
-    toggleHero: ->
+    init: ->
+      $heroMore = $(".hero-more")
+      $heroTeaser = $(".hero-teaser")
+      $hero = $(".hero")
+      $parent = $(".hero-wrapper")
+      $icon = $(".chain-icon")
+
+      $hero.on "transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd", (event) ->
+        if $( event.target ).is( $hero )
+          $heroTeaser.hide()
+          $parent.css
+            "-webkit-transition": "none"
+            "height": "auto"
+          $hero.css
+            "-webkit-transition": "none"
+            "-webkit-transform": "translate3d( 0, 0, 0 )"
+          $heroMore.css( "position", "static" )
+
+    toggle: ->
       $heroMore = $(".hero-more")
       $heroTeaser = $(".hero-teaser")
       $hero = $(".hero")
@@ -37,10 +56,6 @@ window.APP =
         $hero.removeClass "more-revealed"
         $heroMore.hide()
         $heroTeaser.show()
-        
-
-
-
 
 
 $(document).ready ->
