@@ -28,8 +28,10 @@ window.APP =
 
         $parent.height( oldHeight )
         $parent.height() # force a repaint
-        $parent.css( "-webkit-transition", "height 3s" ) # this should be a css hook for other browsers
+        $parent.css( "-webkit-transition", "height 0.4s" ) # this should use a css hook for other browsers
         $parent.height( newHeight )
+
+        $hero.css( "-webkit-transform", "translate3d( 0, #{newHeight}px, 0 )" )
 
       else
         $hero.removeClass "more-revealed"
