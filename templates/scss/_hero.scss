@@ -41,7 +41,6 @@ Breakpoint - Non-media query browsers do NOT get styles inside media query:
 }
 */
 
-
 // Chill out, colors will be extracted and moved to the _colors file
 
 $dropdown-transition-duration: 0.4s;
@@ -50,11 +49,9 @@ $dropdown-transition-duration: 0.4s;
   //@include transition( max-height $dropdown-transition-duration );
   overflow: hidden;
   background: #232323;
-  float: left;
-  width: 100%;
 
   @include breakpoint( 45em, $no-query: $nomq ){
-    border: 30px solid #575757;
+    /*border: 30px solid #575757;*/
   }
 }
 
@@ -71,6 +68,7 @@ $dropdown-transition-duration: 0.4s;
   float: left;
   width: 100%;
   background: chartreuse;
+  -webkit-transform: translate3d( 0, 0, 0 );
 }
 
 .hero-teaser {
@@ -117,6 +115,7 @@ $dropdown-transition-duration: 0.4s;
   display: inline-block;
   cursor: pointer;
   position: relative;
+  @include transform( translate3d( 0, 0, 0 ) ); // prevent flicker in safari
 
   [data-icon] {
     font-size: 80px;
