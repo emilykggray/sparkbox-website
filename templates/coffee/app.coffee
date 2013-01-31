@@ -9,38 +9,32 @@ window.APP =
       $( "#build-header" ).toggleClass "bh-collapsed"
 
     $(".chain-icon").on "click", ->
-      $( ".hero" ).toggleClass "more-revealed"
-      APP.hero.toggleMore()
+      APP.hero.toggleHero()
 
   hero:
-    toggleMore: ->
+    toggleHero: ->
       $heroMore = $(".hero-more")
       $heroTeaser = $(".hero-teaser")
-      $slider = $(".hero")
+      $hero = $(".hero")
       $parent = $(".hero-wrapper")
       $icon = $(".chain-icon")
 
-      heroMoreHeight = $heroMore.outerHeight()
-      heroTeaserHeight = $heroTeaser.outerHeight()
+      if !$hero.hasClass( "more-revealed" )
+        $heroMore.show()
 
-      if $slider.hasClass "more-revealed"
-        iconHeight = $icon.height()
-        iconOffset = iconHeight * .4
-        newParentHeight = heroMoreHeight + iconHeight - iconOffset
+        newHeight = $heroMore.outerHeight()
+        oldHeight = $heroTeaser.outerHeight()
+        $parent.height( oldHeight )
+        $parent.height( newHeight )
 
-        # set proper parent height
-        $parent.height newParentHeight
-
-        # slide to correct view
-        $slider.css( "-webkit-transform", "translate3d( 0, #{heroMoreHeight}px, 0 )" )
       else
-        newParentHeight = heroTeaserHeight
+        $heroMore.hide()
+        $heroTeaser.show()
+        
 
-        # set proper parent height
-        $parent.height( newParentHeight )
+      $hero.toggleClass "more-revealed"
 
-        # slide to correct view
-        $slider.css( "-webkit-transform", "translate3d( 0, 0, 0 )" )
+
 
 
 $(document).ready ->
