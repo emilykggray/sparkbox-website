@@ -19,20 +19,24 @@ window.APP =
       $parent = $(".hero-wrapper")
       $icon = $(".chain-icon")
 
-      if !$hero.hasClass( "more-revealed" )
+      if !$hero.hasClass "more-revealed"
+        $hero.addClass "more-revealed"
         $heroMore.show()
 
         newHeight = $heroMore.outerHeight()
         oldHeight = $heroTeaser.outerHeight()
+
         $parent.height( oldHeight )
+        $parent.height() # force a repaint
+        $parent.css( "-webkit-transition", "height 3s" ) # this should be a css hook for other browsers
         $parent.height( newHeight )
 
       else
+        $hero.removeClass "more-revealed"
         $heroMore.hide()
         $heroTeaser.show()
         
 
-      $hero.toggleClass "more-revealed"
 
 
 

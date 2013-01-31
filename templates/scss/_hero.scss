@@ -168,13 +168,16 @@ $dropdown-transition-duration: 0.4s;
   background: #cbf8ff;
   color: #265e67;
 
-  .js & {
-    display: none;
-  }
+  display: none;
 
   .more-revealed & {
+    display: block;
     position: absolute;
     bottom: 100%;
+  }
+
+  .no-js & {
+    display: block !important;
   }
 
   .hero-seal{
