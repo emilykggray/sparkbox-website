@@ -29,6 +29,7 @@ window.APP =
       $wrapper = $( ".hero-wrapper" )
       $heroMore = $( ".hero-more" )
       $heroTeaser = $( ".hero-teaser" )
+      $iconWrapper = $( ".icon-wrapper" )
 
       $heroMore.css
         #hide up out of view, out of flow
@@ -61,7 +62,6 @@ window.APP =
             "bottom": "100%"
             "width": "100%"
 
-
           $wrapper.css
             "-webkit-transition": "none"
             "height": "auto"
@@ -69,23 +69,25 @@ window.APP =
     toggle: ( $from, $to ) ->
       $slider = $from.parent() # slider does the sliding
       $wrapper = $slider.parent() # wrapper does the cropping
+      $icon = $( ".chain-icon" ) # should this be passed in as a parameter?
+      iconHeight = $icon.outerHeight(includeMargin = true)
 
       $slider.toggleClass("more-revealed")
 
-      $to.show()
-
       # get height values for $wrapper transition
-      oldHeight = $from.outerHeight()
+      oldHeight = $from.outerHeight() + iconHeight
       newHeight = $to.outerHeight()
 
       # set fixed height on $wrapper
-      $wrapper.height( oldHeight )
+      $wrapper.css
+        "height": oldHeight
+        "padding-bottom": iconHeight
 
       # repaint
       $wrapper.height()
 
       # set transition
-      $wrapper.css( "-webkit-transition", "height 0.4s" ) # this should use a css hook for other browsers
+      $wrapper.css( "-webkit-transition", "all 4s" ) # this should use a css hook for other browsers
 
       # set new height
       $wrapper.height( newHeight )
@@ -95,7 +97,7 @@ window.APP =
 
       # slide to proper position
       $slider.css
-        "-webkit-transition": "all 0.4s"
+        "-webkit-transition": "all 4s"
         "-webkit-transform": "translate3d( 0, #{newHeight}px, 0 )"
 
       # (set transform to 0 on animation end with callback)
