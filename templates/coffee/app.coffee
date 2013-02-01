@@ -31,8 +31,7 @@ window.APP =
             "-webkit-transform": "translate3d( 0, 0, 0 )"
           $heroMore.css( "position", "static" )
 
-    toggle: ->
-      $heroMore = $(".hero-more")
+    #toggle: ->
       $heroTeaser = $(".hero-teaser")
       $hero = $(".hero")
       $parent = $(".hero-wrapper")
@@ -42,8 +41,7 @@ window.APP =
         $hero.addClass "more-revealed"
         $heroMore.show()
 
-        newHeight = $heroMore.outerHeight()
-        oldHeight = $heroTeaser.outerHeight()
+        #newHeight = $heroMore.outerHeight()
 
         $parent.height( oldHeight )
         $parent.height() # force a repaint
@@ -56,6 +54,8 @@ window.APP =
         $hero.removeClass "more-revealed"
         $heroMore.hide()
         $heroTeaser.show()
+
+    betterToggle: ( $from, $to ) ->
 
 
 $(document).ready ->
