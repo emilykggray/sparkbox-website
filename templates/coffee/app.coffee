@@ -31,31 +31,10 @@ window.APP =
             "-webkit-transform": "translate3d( 0, 0, 0 )"
           $heroMore.css( "position", "static" )
 
-    #toggle: ->
-      $heroTeaser = $(".hero-teaser")
-      $hero = $(".hero")
-      $parent = $(".hero-wrapper")
-      $icon = $(".chain-icon")
+    toggle: ( $from, $to ) ->
+      $slider = $from.parent()
+      $wrapper = $slider.parent()
 
-      if !$hero.hasClass "more-revealed"
-        $hero.addClass "more-revealed"
-        $heroMore.show()
-
-        #newHeight = $heroMore.outerHeight()
-
-        $parent.height( oldHeight )
-        $parent.height() # force a repaint
-        $parent.css( "-webkit-transition", "height 0.4s" ) # this should use a css hook for other browsers
-        $parent.height( newHeight )
-
-        $hero.css( "-webkit-transform", "translate3d( 0, #{newHeight}px, 0 )" )
-
-      else
-        $hero.removeClass "more-revealed"
-        $heroMore.hide()
-        $heroTeaser.show()
-
-    betterToggle: ( $from, $to ) ->
 
 
 $(document).ready ->
