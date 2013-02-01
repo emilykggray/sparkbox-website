@@ -10,27 +10,61 @@ window.APP =
       $( "#build-header" ).toggleClass "bh-collapsed"
 
     $(".chain-icon").on "click", (e) ->
-      console.log e
-      APP.hero.toggle( $(".hero-teaser"), $(".hero-more") )
+      $heroTeaser = $( ".hero-teaser" )
+      $heroMore = $( ".hero-more" )
+      $slider = $( ".hero" )
+      $wrapper = $( ".hero-wrapper" )
+
+      if !$slider.hasClass( "more-revealed" )
+        console.log "leaving teaser, entering more"
+        APP.hero.toggle( $heroTeaser, $heroMore )
+      else
+        console.log "leaving more, entering teaser"
+        APP.hero.toggle( $heroMore, $heroTeaser )
 
   hero:
-    init: ->
-      $heroMore = $(".hero-more")
-      $heroTeaser = $(".hero-teaser")
-      $hero = $(".hero")
-      $parent = $(".hero-wrapper")
-      $icon = $(".chain-icon")
 
-      $hero.on "transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd", (event) ->
-        if $( event.target ).is( $hero )
-          $heroTeaser.hide()
-          $parent.css
-            "-webkit-transition": "none"
-            "height": "auto"
-          $hero.css
+    init: ->
+      $slider = $( ".hero" )
+      $wrapper = $( ".hero-wrapper" )
+      $heroMore = $( ".hero-more" )
+      $heroTeaser = $( ".hero-teaser" )
+
+      $heroMore.css
+        #hide up out of view, out of flow
+        "position": "absolute"
+        "bottom": "100%"
+        "width": "100%"
+
+      $wrapper.on "transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd", (event) ->
+        # if height is done transitioning
+        if $( event.target ).is( $wrapper )
+
+          if $slider.hasClass( "more-revealed" )
+            $from = $( ".hero-teaser" )
+            $to = $( ".hero-more" )
+            console.log "entered hero-more"
+          else
+            $from = $( ".hero-more" )
+            $to = $( ".hero-teaser" )
+            console.log "entered hero-teaser"
+
+          $to.css
+            "position": "static"
+          $slider.css
             "-webkit-transition": "none"
             "-webkit-transform": "translate3d( 0, 0, 0 )"
-          $heroMore.css( "position", "static" )
+
+          $from.css
+            #hide up out of view, out of flow
+            "position": "absolute"
+            "bottom": "100%"
+            "width": "100%"
+
+
+          $wrapper.css
+            "-webkit-transition": "none"
+            "height": "auto"
 
     toggle: ( $from, $to ) ->
       $slider = $from.parent() # slider does the sliding
@@ -60,7 +94,9 @@ window.APP =
       # (event set in init())
 
       # slide to proper position
-      $slider.css( "-webkit-transform", "translate3d( 0, #{newHeight}px, 0 )" )
+      $slider.css
+        "-webkit-transition": "all 0.4s"
+        "-webkit-transform": "translate3d( 0, #{newHeight}px, 0 )"
 
       # (set transform to 0 on animation end with callback)
       # (event in init())
