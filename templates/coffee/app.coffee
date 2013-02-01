@@ -9,8 +9,9 @@ window.APP =
     $( "#build-reveal" ).click ->
       $( "#build-header" ).toggleClass "bh-collapsed"
 
-    $(".chain-icon").on "click", ->
-      APP.hero.toggle()
+    $(".chain-icon").on "click", (e) ->
+      console.log e
+      APP.hero.toggle( $(".hero-teaser"), $(".hero-more") )
 
   hero:
     init: ->
@@ -31,55 +32,38 @@ window.APP =
             "-webkit-transform": "translate3d( 0, 0, 0 )"
           $heroMore.css( "position", "static" )
 
-    oldToggle: ->
-      $heroTeaser = $(".hero-teaser")
-      $hero = $(".hero")
-      $parent = $(".hero-wrapper")
-      $icon = $(".chain-icon")
-
-      if !$hero.hasClass "more-revealed"
-        $hero.addClass "more-revealed"
-        $heroMore.show()
-
-        #newHeight = $heroMore.outerHeight()
-
-        $parent.height( oldHeight )
-        $parent.height() # force a repaint
-        $parent.css( "-webkit-transition", "height 0.4s" ) # this should use a css hook for other browsers
-        $parent.height( newHeight )
-
-        $hero.css( "-webkit-transform", "translate3d( 0, #{newHeight}px, 0 )" )
-
-      else
-        $hero.removeClass "more-revealed"
-        $heroMore.hide()
-        $heroTeaser.show()
-
     toggle: ( $from, $to ) ->
-      $slider = $from.parent()
-      $wrapper = $slider.parent()
+      $slider = $from.parent() # slider does the sliding
+      $wrapper = $slider.parent() # wrapper does the cropping
 
-      if !$slider.hasClass("more-revealed")
-        $slider.addClass("more-revealed")
+      $slider.toggleClass("more-revealed")
 
-        $to.show()
+      $to.show()
 
-        # get height values for $wrapper transition
-        oldHeight = $from.outerHeight()
-        newHeight = $to.outerHeight()
+      # get height values for $wrapper transition
+      oldHeight = $from.outerHeight()
+      newHeight = $to.outerHeight()
 
-        # set fixed height on $wrapper
+      # set fixed height on $wrapper
+      $wrapper.height( oldHeight )
 
-        # repaint
+      # repaint
+      $wrapper.height()
 
-        # set transition
+      # set transition
+      $wrapper.css( "-webkit-transition", "height 0.4s" ) # this should use a css hook for other browsers
 
-        # set new height
+      # set new height
+      $wrapper.height( newHeight )
 
-        # (set height to auto on animation end with callback)
-        # (done on init())
+      # (set height to auto on animation end with callback)
+      # (event set in init())
 
-        # slide to proper position
+      # slide to proper position
+      $slider.css( "-webkit-transform", "translate3d( 0, #{newHeight}px, 0 )" )
+
+      # (set transform to 0 on animation end with callback)
+      # (event in init())
 
 $(document).ready ->
   UTIL.loadEvents
