@@ -38,7 +38,7 @@ window.APP =
         "width": "100%"
 
       $wrapper.on "transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd", (event) ->
-        # if height is done transitioning
+        # when height is done transitioning
         if $( event.target ).is( $wrapper )
 
           if $slider.hasClass( "more-revealed" )
