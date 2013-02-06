@@ -74,6 +74,14 @@ Breakpoint - Non-media query browsers do NOT get styles inside media query:
   padding: 0 30px 30px;
   text-align: center;
 
+  .js .more-revealed & {
+    // this is the final state set
+    // after animations happen
+    position: absolute;
+    bottom: 100%;
+    width: 100%;
+  }
+
   @include breakpoint( 40em ){
     padding: 0 50px 50px;
   }
