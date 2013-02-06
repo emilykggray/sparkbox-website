@@ -41,10 +41,12 @@ window.APP =
         # when height is done transitioning
         if $( event.target ).is( $wrapper )
 
+          # if we went from teaser to more
           if $slider.hasClass( "more-revealed" )
             $from = $( ".hero-teaser" )
             $to = $( ".hero-more" )
             console.log "entered hero-more"
+          # if we went from more to teaser
           else
             $from = $( ".hero-more" )
             $to = $( ".hero-teaser" )
