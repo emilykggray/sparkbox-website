@@ -162,7 +162,13 @@ Breakpoint - Non-media query browsers do NOT get styles inside media query:
   background: #cbf8ff;
   color: #265e67;
 
-  .hero-seal{
+  .js .more-revealed & {
+    // this is the final state set
+    // after animations happen
+    position: static;
+  }
+
+  .hero-seal {
     background-color: #a3eaf5;
     padding: 30px;
 
