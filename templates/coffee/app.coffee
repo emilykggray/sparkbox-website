@@ -73,13 +73,13 @@ window.APP =
             # make height auto
             "height": "auto"
 
+          $slider.toggleClass("more-revealed")
+
     toggle: ( $from, $to ) ->
       $slider = $from.parent() # slider does the sliding
       $wrapper = $slider.parent() # wrapper does the cropping
       $icon = $( ".chain-icon" ) # should this be passed in as a parameter?
       iconHeight = $icon.outerHeight(includeMargin = true)
-
-      $slider.toggleClass("more-revealed")
 
       # get height values for $wrapper transition
       oldHeight = $from.outerHeight() + iconHeight
