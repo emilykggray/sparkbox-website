@@ -146,20 +146,12 @@ Breakpoint - Non-media query browsers do NOT get styles inside media query:
       @include transform( translate3d( 0.1em, 0.05em, 0 ) rotate( 6deg ) );
     }
   }
-  //.more-revealed & {
-    //margin-top: -30px; // to center icon when more is revealed
-    //margin-bottom: 20px; // moves text below out of the way
-
-  //}
   @include breakpoint( 40em ){
     //margin-top: -20px;
 
     [data-icon] {
       font-size: 140px;
     }
-    //.more-revealed & {
-      //margin-top: -50px;
-    //}
   }
 }
 
