@@ -53,9 +53,12 @@ window.APP =
             console.log "entered hero-teaser"
 
           $to.css
+            # add to flow
             "position": "static"
           $slider.css
+            # remove transition
             "-webkit-transition": "none"
+            # remove transform
             "-webkit-transform": "translate3d( 0, 0, 0 )"
 
           $from.css
@@ -65,7 +68,9 @@ window.APP =
             "width": "100%"
 
           $wrapper.css
+            # remove transition
             "-webkit-transition": "none"
+            # make height auto
             "height": "auto"
 
     toggle: ( $from, $to ) ->
