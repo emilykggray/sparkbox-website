@@ -52,26 +52,13 @@ window.APP =
             $to = $( ".hero-teaser" )
             console.log "entered hero-teaser"
 
-          $to.css
-            # add to flow
-            "position": "static"
-          $slider.css
-            # remove transition
-            "-webkit-transition": "none"
-            # remove transform
-            "-webkit-transform": "translate3d( 0, 0, 0 )"
+          $to.removeAttr("style")
 
-          $from.css
-            #hide up out of view, out of flow
-            "position": "absolute"
-            "bottom": "100%"
-            "width": "100%"
+          $slider.removeAttr("style")
 
-          $wrapper.css
-            # remove transition
-            "-webkit-transition": "none"
-            # make height auto
-            "height": "auto"
+          $from.removeAttr("style")
+
+          $wrapper.removeAttr("style")
 
           $slider.toggleClass("more-revealed")
 
