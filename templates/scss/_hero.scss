@@ -65,6 +65,12 @@ Breakpoint - Non-media query browsers do NOT get styles inside media query:
   width: 100%;
   background: chartreuse;
   @include transform( translate3d( 0, 0, 0 ) );
+
+  .js &.more-revealed {
+    // this is the final state set
+    // after animations happen
+    @include rem( height, 8 )
+  }
 }
 
 .hero-teaser {
@@ -115,10 +121,18 @@ Breakpoint - Non-media query browsers do NOT get styles inside media query:
 
 .icon-wrapper {
   // this guy wraps the chain icon
-  //background: #242424;
-  background: red;
+  background: #242424;
+  @include rem( height, 8 );
   width: 100%;
   text-align: center;
+
+  .js .more-revealed & {
+    // this is the final state set
+    // after animations happen
+    position: absolute;
+    bottom: 0;
+    z-index: 1;
+  }
 }
 .chain-icon {
   @include transition( all 0.1s );
@@ -127,6 +141,7 @@ Breakpoint - Non-media query browsers do NOT get styles inside media query:
   display: inline-block;
   color: #73c5d2;
   cursor: pointer;
+  margin-top: -2em;
 
   [data-icon] {
     font-size: 80px;
@@ -169,6 +184,13 @@ Breakpoint - Non-media query browsers do NOT get styles inside media query:
   // but slides into view when revealed
   background: #cbf8ff;
   color: #265e67;
+
+  .js {
+    // hide up out of view, out of flow
+    position: absolute;
+    bottom: 100%;
+    width: 100%;
+  }
 
   .js .more-revealed & {
     // this is the final state set
