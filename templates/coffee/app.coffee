@@ -69,7 +69,7 @@ window.APP =
       iconHeight = $icon.outerHeight(includeMargin = true)
 
       # get height values for $wrapper transition
-      oldHeight = $from.outerHeight() + iconHeight
+      oldHeight = $slider.outerHeight()
       newHeight = $to.outerHeight()
 
       # set fixed height on $wrapper
