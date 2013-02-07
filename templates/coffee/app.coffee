@@ -31,12 +31,6 @@ window.APP =
       $heroTeaser = $( ".hero-teaser" )
       $iconWrapper = $( ".icon-wrapper" )
 
-      $heroMore.css
-        #hide up out of view, out of flow
-        "position": "absolute"
-        "bottom": "100%"
-        "width": "100%"
-
       $wrapper.on "transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd", (event) ->
         # make sure height is done transitioning
         if $( event.target ).is( $wrapper )
@@ -53,11 +47,8 @@ window.APP =
             console.log "entered hero-teaser"
 
           $to.removeAttr("style")
-
           $slider.removeAttr("style")
-
           $from.removeAttr("style")
-
           $wrapper.removeAttr("style")
 
           $slider.toggleClass("more-revealed")
@@ -65,23 +56,25 @@ window.APP =
     toggle: ( $from, $to ) ->
       $slider = $from.parent() # slider does the sliding
       $wrapper = $slider.parent() # wrapper does the cropping
-      $icon = $( ".chain-icon" ) # should this be passed in as a parameter?
-      iconHeight = $icon.outerHeight(includeMargin = true)
+      $iconWrapper = $( ".icon-wrapper" ) # should this be passed in as a parameter?
 
-      # get height values for $wrapper transition
-      oldHeight = $slider.outerHeight()
-      newHeight = $to.outerHeight()
+      fromHeight = $slider.outerHeight()
+      toHeight = $to.outerHeight()
+      iconHeight = $iconWrapper.outerHeight()
+
+      # get values for $wrapper transition
+      offset = toHeight
+      newHeight = toHeight + iconHeight
 
       # set fixed height on $wrapper
       $wrapper.css
-        "height": oldHeight
-        "padding-bottom": iconHeight
+        "height": fromHeight
 
       # repaint
       $wrapper.height()
 
       # set transition
-      $wrapper.css( "-webkit-transition", "all 4s" ) # this should use a css hook for other browsers
+      $wrapper.css( "-webkit-transition", "all 0.3s" ) # this should use a css hook for other browsers
 
       # set new height
       $wrapper.height( newHeight )
@@ -91,8 +84,8 @@ window.APP =
 
       # slide to proper position
       $slider.css
-        "-webkit-transition": "all 4s"
-        "-webkit-transform": "translate3d( 0, #{newHeight}px, 0 )"
+        "-webkit-transition": "all 0.3s"
+        "-webkit-transform": "translate3d( 0, #{toHeight}px, 0 )"
 
       # (set transform to 0 on animation end with callback)
       # (event in init())
