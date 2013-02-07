@@ -69,7 +69,7 @@ Breakpoint - Non-media query browsers do NOT get styles inside media query:
   .js &.more-revealed {
     // this is the final state set
     // after animations happen
-    @include rem( height, 8 )
+    height: auto;
   }
 }
 
@@ -122,7 +122,7 @@ Breakpoint - Non-media query browsers do NOT get styles inside media query:
 .icon-wrapper {
   // this guy wraps the chain icon
   background: #242424;
-  @include rem( height, 8 );
+  height: 128px;
   width: 100%;
   text-align: center;
 
@@ -196,6 +196,7 @@ Breakpoint - Non-media query browsers do NOT get styles inside media query:
     // this is the final state set
     // after animations happen
     position: static;
+    padding-bottom: 128px;
   }
 
   .hero-seal {
