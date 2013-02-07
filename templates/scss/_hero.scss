@@ -63,7 +63,7 @@ Breakpoint - Non-media query browsers do NOT get styles inside media query:
   // we translate this thing to show dropdown animation
   float: left;
   width: 100%;
-  background: chartreuse;
+  background: #242424;
   @include transform( translate3d( 0, 0, 0 ) );
 
   .js &.more-revealed {
@@ -122,9 +122,12 @@ Breakpoint - Non-media query browsers do NOT get styles inside media query:
 .icon-wrapper {
   // this guy wraps the chain icon
   background: #242424;
-  height: 128px;
   width: 100%;
   text-align: center;
+  @include rem( height, 4 );
+  @include breakpoint( 40em ){
+    @include rem( padding-bottom, 8 );
+  }
 
   .js .more-revealed & {
     // this is the final state set
@@ -141,7 +144,10 @@ Breakpoint - Non-media query browsers do NOT get styles inside media query:
   display: inline-block;
   color: #73c5d2;
   cursor: pointer;
-  margin-top: -2em;
+  margin-top: -1.4em;
+  @include breakpoint( 40em ){
+    margin-top: -2em;
+  }
 
   [data-icon] {
     font-size: 80px;
@@ -185,7 +191,7 @@ Breakpoint - Non-media query browsers do NOT get styles inside media query:
   background: #cbf8ff;
   color: #265e67;
 
-  .js {
+  .js & {
     // hide up out of view, out of flow
     position: absolute;
     bottom: 100%;
@@ -196,7 +202,11 @@ Breakpoint - Non-media query browsers do NOT get styles inside media query:
     // this is the final state set
     // after animations happen
     position: static;
-    padding-bottom: 128px;
+    @include rem( padding-bottom, 4 );
+
+    @include breakpoint( 40em ){
+      @include rem( padding-bottom, 8 );
+    }
   }
 
   .hero-seal {
