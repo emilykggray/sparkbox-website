@@ -38,7 +38,7 @@ window.APP =
         "width": "100%"
 
       $wrapper.on "transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd", (event) ->
-        # when height is done transitioning
+        # make sure height is done transitioning
         if $( event.target ).is( $wrapper )
 
           # if we went from teaser to more
