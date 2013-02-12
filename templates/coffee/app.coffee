@@ -14,7 +14,6 @@ window.APP =
       $heroMore = $( ".hero-more" )
       $slider = $( ".hero" )
       $wrapper = $( ".hero-wrapper" )
-      console.log e
 
       if !$slider.hasClass( "more-revealed" )
         # if it's currently collapsed
@@ -25,63 +24,63 @@ window.APP =
 
   hero:
 
+    TRANSITION_NAMES: "transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd"
+
     init: ->
-      $slider = $( ".hero" )
-      $wrapper = $( ".hero-wrapper" )
-      $heroMore = $( ".hero-more" )
-      $heroTeaser = $( ".hero-teaser" )
-      $iconWrapper = $( ".icon-wrapper" )
+      @$slider = $( ".hero" )
+      @$wrapper = $( ".hero-wrapper" )
+      @$heroMore = $( ".hero-more" )
+      @$heroTeaser = $( ".hero-teaser" )
+      @$iconWrapper = $( ".icon-wrapper" )
 
-      $wrapper.on "transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd", (event) ->
-        # make sure height is done transitioning
-        if $( event.target ).is( $wrapper )
-          console.log event
+    endTransition: (event) ->
+      # make sure height is done transitioning
+      console.log event.target
 
-          $heroTeaser = $( ".hero-teaser" )
-          $heroMore = $( ".hero-more" )
-          $slider = $heroTeaser.parent() # slider does the sliding
-          $wrapper = $slider.parent() # wrapper does the cropping
+      if $( event.target ).is( @$wrapper )
+        console.log "removing styles!"
+        @$heroTeaser.removeAttr("style")
+        @$heroMore.removeAttr("style")
+        @$slider.removeAttr("style")
+        @$wrapper.removeAttr("style")
+        @$wrapper.off @TRANSITION_NAMES
 
-          $heroTeaser.removeAttr("style")
-          $heroMore.removeAttr("style")
-          $slider.removeAttr("style")
-          $wrapper.removeAttr("style")
+    endClose: (event) ->
+      @endTransition(event)
 
-          $slider.toggleClass("more-revealed")
+    endOpen: (event) ->
+      @endTransition(event)
+      @$slider.addClass("more-revealed") if $( event.target ).is( @$wrapper )
 
     open: ->
-      $heroTeaser = $( ".hero-teaser" )
-      $heroMore = $( ".hero-more" )
-      $slider = $heroTeaser.parent() # slider does the sliding
-      $wrapper = $slider.parent() # wrapper does the cropping
-      $iconWrapper = $( ".icon-wrapper" ) # should this be passed in as a parameter?
+      teaserHeight = @$slider.outerHeight()
+      moreHeight = @$heroMore.outerHeight()
+      iconHeight = @$iconWrapper.outerHeight()
 
-      teaserHeight = $slider.outerHeight()
-      moreHeight = $heroMore.outerHeight()
-      iconHeight = $iconWrapper.outerHeight()
-
-      # get values for $wrapper transition
+      # get values for @$wrapper transition
       offset = moreHeight # slider offset
       newHeight = moreHeight + iconHeight
 
-      # set fixed height on $wrapper
-      $wrapper.css
+      # set fixed height on @$wrapper
+      @$wrapper.css
         "height": teaserHeight
 
       # repaint
-      $wrapper.height()
+      @$wrapper.height()
+
+      @$wrapper.on @TRANSITION_NAMES, $.proxy( @endOpen, this )
 
       # set transition
-      $wrapper.css( "-webkit-transition", "all 0.3s" ) # this should use a css hook for other browsers
+      @$wrapper.css( "-webkit-transition", "all 0.3s" ) # this should use a css hook for other browsers
 
       # set more height
-      $wrapper.height( newHeight )
+      @$wrapper.height( newHeight )
 
       # (set height to auto on animation end with callback)
       # (event set in init())
 
       # slide to proper position
-      $slider.css
+      @$slider.css
         "-webkit-transition": "all 0.3s"
         "-webkit-transform": "translate3d( 0, #{offset}px, 0 )"
 
@@ -89,29 +88,22 @@ window.APP =
       # (event in init())
 
     close: ->
-      $heroTeaser = $( ".hero-teaser" )
-      $heroMore = $( ".hero-more" )
-      $slider = $heroTeaser.parent() # slider does the sliding
-      $wrapper = $slider.parent() # wrapper does the cropping
-      $iconWrapper = $( ".icon-wrapper" ) # should this be passed in as a parameter?
+      teaserHeight = @$heroTeaser.outerHeight() + @$iconWrapper.outerHeight()
+      moreHeight = @$heroMore.outerHeight()
+      iconHeight = @$iconWrapper.outerHeight()
 
-      $slider.removeClass( "more-revealed" )
-
-      teaserHeight = $heroTeaser.outerHeight() + $iconWrapper.outerHeight()
-      moreHeight = $heroMore.outerHeight()
-      iconHeight = $iconWrapper.outerHeight()
-
-      # get values for $wrapper transition
+      # get values for @$wrapper transition
       offset = moreHeight # slider offset
       newHeight = teaserHeight
 
-      $wrapper.height( moreHeight )
+      @$slider.removeClass("more-revealed")
 
-      $wrapper.height()
-
-      $wrapper.height( newHeight )
+      @$wrapper.height( moreHeight )
+      @$wrapper.height()
+      @$wrapper.on @TRANSITION_NAMES, $.proxy( @endClose, this )
+      @$wrapper.css( "-webkit-transition", "all 0.3s" ) # this should use a css hook for other browsers
+      @$wrapper.height( newHeight )
 
 
 $(document).ready ->
-  UTIL.loadEvents
   APP.init()
