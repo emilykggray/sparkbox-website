@@ -14,13 +14,14 @@ window.APP =
       $heroMore = $( ".hero-more" )
       $slider = $( ".hero" )
       $wrapper = $( ".hero-wrapper" )
+      console.log e
 
       if !$slider.hasClass( "more-revealed" )
-        console.log "leaving teaser, entering more"
-        APP.hero.toggle( $heroTeaser, $heroMore )
+        # if it's currently collapsed
+        APP.hero.open()
       else
-        console.log "leaving more, entering teaser"
-        APP.hero.toggle( $heroMore, $heroTeaser )
+        # if it's currently open
+        APP.hero.close()
 
   hero:
 
@@ -34,41 +35,38 @@ window.APP =
       $wrapper.on "transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd", (event) ->
         # make sure height is done transitioning
         if $( event.target ).is( $wrapper )
+          console.log event
 
-          # if we went from teaser to more
-          if $slider.hasClass( "more-revealed" )
-            $from = $( ".hero-teaser" )
-            $to = $( ".hero-more" )
-            console.log "entered hero-more"
-          # if we went from more to teaser
-          else
-            $from = $( ".hero-more" )
-            $to = $( ".hero-teaser" )
-            console.log "entered hero-teaser"
+          $heroTeaser = $( ".hero-teaser" )
+          $heroMore = $( ".hero-more" )
+          $slider = $heroTeaser.parent() # slider does the sliding
+          $wrapper = $slider.parent() # wrapper does the cropping
 
-          $to.removeAttr("style")
+          $heroTeaser.removeAttr("style")
+          $heroMore.removeAttr("style")
           $slider.removeAttr("style")
-          $from.removeAttr("style")
           $wrapper.removeAttr("style")
 
           $slider.toggleClass("more-revealed")
 
-    toggle: ( $from, $to ) ->
-      $slider = $from.parent() # slider does the sliding
+    open: ->
+      $heroTeaser = $( ".hero-teaser" )
+      $heroMore = $( ".hero-more" )
+      $slider = $heroTeaser.parent() # slider does the sliding
       $wrapper = $slider.parent() # wrapper does the cropping
       $iconWrapper = $( ".icon-wrapper" ) # should this be passed in as a parameter?
 
-      fromHeight = $slider.outerHeight()
-      toHeight = $to.outerHeight()
+      teaserHeight = $slider.outerHeight()
+      moreHeight = $heroMore.outerHeight()
       iconHeight = $iconWrapper.outerHeight()
 
       # get values for $wrapper transition
-      offset = toHeight
-      newHeight = toHeight + iconHeight
+      offset = moreHeight # slider offset
+      newHeight = moreHeight + iconHeight
 
       # set fixed height on $wrapper
       $wrapper.css
-        "height": fromHeight
+        "height": teaserHeight
 
       # repaint
       $wrapper.height()
@@ -76,7 +74,7 @@ window.APP =
       # set transition
       $wrapper.css( "-webkit-transition", "all 0.3s" ) # this should use a css hook for other browsers
 
-      # set new height
+      # set more height
       $wrapper.height( newHeight )
 
       # (set height to auto on animation end with callback)
@@ -85,10 +83,34 @@ window.APP =
       # slide to proper position
       $slider.css
         "-webkit-transition": "all 0.3s"
-        "-webkit-transform": "translate3d( 0, #{toHeight}px, 0 )"
+        "-webkit-transform": "translate3d( 0, #{offset}px, 0 )"
 
       # (set transform to 0 on animation end with callback)
       # (event in init())
+
+    close: ->
+      $heroTeaser = $( ".hero-teaser" )
+      $heroMore = $( ".hero-more" )
+      $slider = $heroTeaser.parent() # slider does the sliding
+      $wrapper = $slider.parent() # wrapper does the cropping
+      $iconWrapper = $( ".icon-wrapper" ) # should this be passed in as a parameter?
+
+      $slider.removeClass( "more-revealed" )
+
+      teaserHeight = $heroTeaser.outerHeight() + $iconWrapper.outerHeight()
+      moreHeight = $heroMore.outerHeight()
+      iconHeight = $iconWrapper.outerHeight()
+
+      # get values for $wrapper transition
+      offset = moreHeight # slider offset
+      newHeight = teaserHeight
+
+      $wrapper.height( moreHeight )
+
+      $wrapper.height()
+
+      $wrapper.height( newHeight )
+
 
 $(document).ready ->
   UTIL.loadEvents
