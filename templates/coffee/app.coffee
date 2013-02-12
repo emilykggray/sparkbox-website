@@ -15,12 +15,7 @@ window.APP =
       $slider = $( ".hero" )
       $wrapper = $( ".hero-wrapper" )
 
-      if !$slider.hasClass( "more-revealed" )
-        # if it's currently collapsed
-        APP.hero.open()
-      else
-        # if it's currently open
-        APP.hero.close()
+      APP.hero.toggle()
 
   hero:
 
@@ -33,16 +28,23 @@ window.APP =
       @$heroTeaser = $( ".hero-teaser" )
       @$iconWrapper = $( ".icon-wrapper" )
 
-    open: ->
-      teaserHeight = @$slider.outerHeight()
+    toggle: ->
+      teaserHeight = @$heroTeaser.outerHeight()
       moreHeight = @$heroMore.outerHeight()
       iconHeight = @$iconWrapper.outerHeight()
       oldHeight = iconHeight + teaserHeight
-      newHeight = moreHeight
+      newHeight = iconHeight + moreHeight
+      offset = moreHeight
 
-      @$wrapper.animate( { height: "200px" }, 600, ->
-        alert "animation callback!"
-      )
+      @$slider.height( oldHeight )
+      @$slider.height()
+      @$slider.animate { height: newHeight }, 500, -> APP.hero.openEnd() # crop!
+      @$slider.animate { top: offset }, 500 # slide!
+
+    openEnd: ->
+      @$wrapper.removeAttr( "style" )
+      @$slider.removeAttr( "style" )
+      @$slider.addClass( "more-revealed" )
 
 $(document).ready ->
   APP.init()
