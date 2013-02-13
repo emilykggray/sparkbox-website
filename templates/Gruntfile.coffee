@@ -27,9 +27,9 @@ module.exports = (grunt) ->
         files: ["coffee/*", "js/**/*.js"]
         tasks: "javascript"
 
-      jsTesting:
-        files: ["src/**/*.js", "specs/**/*.js"]
-        tasks: "jasmine"
+      #jsTesting:
+        #files: ["src/**/*.js", "specs/**/*.js"]
+        #tasks: "jasmine"
 
     compass:
       dist:
@@ -128,7 +128,7 @@ module.exports = (grunt) ->
   grunt.registerTask "partials", [ "clean:partials", "concat:partials" ]
 
   # Clean, compile and concatenate JS
-  grunt.registerTask "javascript", [ "clean:javascript", "coffee", "concat:js", "jasmine" ]
+  grunt.registerTask "javascript", [ "clean:javascript", "coffee", "concat:js" ]
 
   # Clean and compile stylesheets
   grunt.registerTask "stylesheets", ["clean:stylesheets", "compass"]
