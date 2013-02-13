@@ -32,6 +32,8 @@ window.APP =
       @$chainIcon = $(".chain-icon")
 
     toggle: ->
+      borderSize = parseInt( @$wrapper.css( "border-width" ) ) # border size, in pixels (for accurate height transitions)
+
       action = if @$slider.hasClass( @OPEN_CLASS ) then "closing" else "opening"
 
       if action is "opening"
@@ -41,7 +43,7 @@ window.APP =
         iconHeight = @$iconWrapper.outerHeight()
 
         oldHeight = iconHeight + teaserHeight
-        newHeight = iconHeight + moreHeight
+        newHeight = iconHeight + moreHeight + borderSize*2
         offset = moreHeight
       else # it's closing
         teaserHeight = @$heroTeaser.outerHeight()
@@ -49,14 +51,14 @@ window.APP =
         iconHeight = @$iconWrapper.outerHeight()
 
         oldHeight = moreHeight
-        newHeight = iconHeight + teaserHeight
+        newHeight = iconHeight + teaserHeight + borderSize*2
         offset = moreHeight - iconHeight
 
       @$wrapper.height( oldHeight )
       @$wrapper.height() # force redraw
       if action is "opening"
-        @$wrapper.animate { height: newHeight }, 500, -> APP.hero.openEnd() # crop!
-        @$slider.animate { top: offset }, 500, -> APP.hero.openEnd() # slide!
+        @$wrapper.animate { height: newHeight, useTranslate3d: true }, 300, -> APP.hero.openEnd() # crop!
+        @$slider.animate { top: offset, useTranslate3d: true }, 300, -> APP.hero.openEnd() # slide!
       else # it's closing
         @$chainIcon.removeClass( "broken" )
         @$slider.removeClass( @OPEN_CLASS )
@@ -74,8 +76,8 @@ window.APP =
           top: 0
           position: "absolute"
 
-        @$wrapper.animate { height: newHeight }, 500, -> APP.hero.closeEnd() # crop!
-        @$slider.animate { top: -offset }, 500, -> APP.hero.closeEnd() # slide!
+        @$wrapper.animate { height: newHeight, useTranslate3d: true }, 300, -> APP.hero.closeEnd() # crop!
+        @$slider.animate { top: -offset, useTranslate3d: true }, 300, -> APP.hero.closeEnd() # slide!
 
     openEnd: ->
       # clear inline styles

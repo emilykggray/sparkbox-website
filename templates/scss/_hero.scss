@@ -49,14 +49,8 @@ Breakpoint - Non-media query browsers do NOT get styles inside media query:
   background: #232323;
 
   @include breakpoint( 45em, $no-query: $nomq ){
-    /*border: 30px solid #575757;*/
+    border: 30px solid #575757;
   }
-}
-
-.hero-inner-wrapper {
-  // this class is only for limiting width.
-  max-width: 300px;
-  margin: 0 auto;
 }
 
 .hero {
@@ -204,36 +198,6 @@ Breakpoint - Non-media query browsers do NOT get styles inside media query:
     @include breakpoint( 40em ){
       @include rem( padding-bottom, 8 );
     }
-  }
-
-  .hero-seal {
-    background-color: #a3eaf5;
-    padding: 30px;
-
-    @include breakpoint( 35em ){
-      position: absolute;
-      width: 50%;
-      height: 100%;
-    }
-  }
-  .image-wrapper {
-    position: relative;
-    width: 70%;
-    height: 0;
-    padding-bottom: 70% * 1.01826484;
-    margin: 0 auto;
-  }
-  .image {
-    background: url(/images/sparkbox-seal.png) no-repeat; // REPLACE WITH SVG
-    background-size: 100%;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-  }
-
-  @include breakpoint( 35em ) {
-    position: relative;
-    min-height: 17em;
   }
 }
 
