@@ -27,11 +27,11 @@ window.APP =
       @$heroMore = $( ".hero-more" )
       @$heroTeaser = $( ".hero-teaser" )
       @$iconWrapper = $( ".icon-wrapper" )
+      @$chainLeft = $( ".chain-left" )
+      @$chainRight = $( ".chain-right" )
 
     toggle: ->
       action = if @$slider.hasClass( @OPEN_CLASS ) then "closing" else "opening"
-
-      console.log action
 
       if action is "opening"
         teaserHeight = @$heroTeaser.outerHeight()
@@ -54,9 +54,11 @@ window.APP =
       @$wrapper.height() # force redraw
       if action is "opening"
         @$wrapper.animate { height: newHeight }, 500, -> APP.hero.openEnd() # crop!
-        @$slider.animate { top: offset }, 500 # slide!
+        @$slider.animate { top: offset }, 500, -> APP.hero.openEnd() # slide!
       else
         @$slider.removeClass( @OPEN_CLASS )
+        # we need to recreate styles from @OPEN_CLASS
+        # so we can transition from them
         @$heroMore.css
           position: "relative"
         @$iconWrapper.css
@@ -68,8 +70,9 @@ window.APP =
         @$slider.css
           top: 0
           position: "absolute"
+
         @$wrapper.animate { height: newHeight }, 500, -> APP.hero.closeEnd() # crop!
-        @$slider.animate { top: -offset }, 500 # slide!
+        @$slider.animate { top: -offset }, 500, -> APP.hero.closeEnd() # slide!
 
     openEnd: ->
       # clear inline styles
@@ -85,6 +88,16 @@ window.APP =
       @$heroMore.removeAttr( "style" )
       @$iconWrapper.removeAttr( "style" )
       @$heroTeaser.removeAttr( "style" )
+
+    breakChain: ->
+      @$chainLeft.animate
+        left: "-0.1em"
+        top: "0.05em"
+        rotate: "-6deg"
+      , 200
+
+      
+      #transform( translate3d( -0.1em, 0.05em, 0 ) rotate( -6deg ) );
 
 
 $(document).ready ->
