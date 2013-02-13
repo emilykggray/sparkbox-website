@@ -24,7 +24,7 @@ module.exports = (grunt) ->
         tasks: "partials"
 
       javascript:
-        files: ["coffee/*", "js/**/*.js"]
+        files: ["coffee/*", "js/*/*.js"]
         tasks: "javascript"
 
       #jsTesting:
