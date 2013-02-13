@@ -45,6 +45,7 @@ Breakpoint - Non-media query browsers do NOT get styles inside media query:
 
 .hero-wrapper {
   overflow: hidden;
+  position: relative;
   background: #232323;
 
   @include breakpoint( 45em, $no-query: $nomq ){
@@ -78,6 +79,7 @@ Breakpoint - Non-media query browsers do NOT get styles inside media query:
   // this slides down when .hero-more is revealed
   background: #242424;
   padding: 0 30px 30px;
+  width: 100%;
   text-align: center;
 
   .js .more-revealed & {
@@ -85,7 +87,6 @@ Breakpoint - Non-media query browsers do NOT get styles inside media query:
     // after animations happen
     position: absolute;
     bottom: 100%;
-    width: 100%;
   }
 
   @include breakpoint( 40em ){
