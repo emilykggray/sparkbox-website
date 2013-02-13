@@ -6,16 +6,18 @@ window.APP =
     @hero.init()
 
   setBindings: ->
+    $chainIcon = $(".chain-icon")
+
     $( "#build-reveal" ).click ->
       $( "#build-header" ).toggleClass "bh-collapsed"
 
-    $(".chain-icon").on "click", (e) ->
-      $heroTeaser = $( ".hero-teaser" )
-      $heroMore = $( ".hero-more" )
-      $slider = $( ".hero" )
-      $wrapper = $( ".hero-wrapper" )
-
+    $chainIcon.click (e) ->
       APP.hero.toggle()
+
+    $chainIcon.bind "mouseenter", ->
+      $( this ).addClass( "broken" )
+    $chainIcon.bind "mouseleave", ->
+      $( this ).removeClass( "broken" )
 
   hero:
 
@@ -27,13 +29,13 @@ window.APP =
       @$heroMore = $( ".hero-more" )
       @$heroTeaser = $( ".hero-teaser" )
       @$iconWrapper = $( ".icon-wrapper" )
-      @$chainLeft = $( ".chain-left" )
-      @$chainRight = $( ".chain-right" )
+      @$chainIcon = $(".chain-icon")
 
     toggle: ->
       action = if @$slider.hasClass( @OPEN_CLASS ) then "closing" else "opening"
 
       if action is "opening"
+        $( @$chainIcon ).addClass( "broken" )
         teaserHeight = @$heroTeaser.outerHeight()
         moreHeight = @$heroMore.outerHeight()
         iconHeight = @$iconWrapper.outerHeight()
@@ -41,7 +43,7 @@ window.APP =
         oldHeight = iconHeight + teaserHeight
         newHeight = iconHeight + moreHeight
         offset = moreHeight
-      else
+      else # it's closing
         teaserHeight = @$heroTeaser.outerHeight()
         moreHeight = @$heroMore.outerHeight()
         iconHeight = @$iconWrapper.outerHeight()
@@ -55,7 +57,8 @@ window.APP =
       if action is "opening"
         @$wrapper.animate { height: newHeight }, 500, -> APP.hero.openEnd() # crop!
         @$slider.animate { top: offset }, 500, -> APP.hero.openEnd() # slide!
-      else
+      else # it's closing
+        @$chainIcon.removeClass( "broken" )
         @$slider.removeClass( @OPEN_CLASS )
         # we need to recreate styles from @OPEN_CLASS
         # so we can transition from them
@@ -88,17 +91,6 @@ window.APP =
       @$heroMore.removeAttr( "style" )
       @$iconWrapper.removeAttr( "style" )
       @$heroTeaser.removeAttr( "style" )
-
-    breakChain: ->
-      @$chainLeft.animate
-        left: "-0.1em"
-        top: "0.05em"
-        rotate: "-6deg"
-      , 200
-
-      
-      #transform( translate3d( -0.1em, 0.05em, 0 ) rotate( -6deg ) );
-
 
 $(document).ready ->
   APP.init()
