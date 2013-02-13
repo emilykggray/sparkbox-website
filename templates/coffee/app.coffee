@@ -19,7 +19,7 @@ window.APP =
 
   hero:
 
-    TRANSITION_NAMES: "transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd"
+    OPEN_CLASS: "more-revealed"
 
     init: ->
       @$slider = $( ".hero" )
@@ -29,22 +29,63 @@ window.APP =
       @$iconWrapper = $( ".icon-wrapper" )
 
     toggle: ->
-      teaserHeight = @$heroTeaser.outerHeight()
-      moreHeight = @$heroMore.outerHeight()
-      iconHeight = @$iconWrapper.outerHeight()
-      oldHeight = iconHeight + teaserHeight
-      newHeight = iconHeight + moreHeight
-      offset = moreHeight
+      action = if @$slider.hasClass( @OPEN_CLASS ) then "closing" else "opening"
 
-      @$slider.height( oldHeight )
-      @$slider.height()
-      @$slider.animate { height: newHeight }, 500, -> APP.hero.openEnd() # crop!
-      @$slider.animate { top: offset }, 500 # slide!
+      console.log action
+
+      if action is "opening"
+        teaserHeight = @$heroTeaser.outerHeight()
+        moreHeight = @$heroMore.outerHeight()
+        iconHeight = @$iconWrapper.outerHeight()
+
+        oldHeight = iconHeight + teaserHeight
+        newHeight = iconHeight + moreHeight
+        offset = moreHeight
+      else
+        teaserHeight = @$heroTeaser.outerHeight()
+        moreHeight = @$heroMore.outerHeight()
+        iconHeight = @$iconWrapper.outerHeight()
+
+        oldHeight = moreHeight
+        newHeight = iconHeight + teaserHeight
+        offset = moreHeight - iconHeight
+
+      @$wrapper.height( oldHeight )
+      @$wrapper.height() # force redraw
+      if action is "opening"
+        @$wrapper.animate { height: newHeight }, 500, -> APP.hero.openEnd() # crop!
+        @$slider.animate { top: offset }, 500 # slide!
+      else
+        @$slider.removeClass( @OPEN_CLASS )
+        @$heroMore.css
+          position: "relative"
+        @$iconWrapper.css
+          position: "absolute"
+          top: moreHeight - iconHeight
+        @$heroTeaser.css
+          position: "absolute"
+          top: moreHeight
+        @$slider.css
+          top: 0
+          position: "absolute"
+        @$wrapper.animate { height: newHeight }, 500, -> APP.hero.closeEnd() # crop!
+        @$slider.animate { top: -offset }, 500 # slide!
 
     openEnd: ->
+      # clear inline styles
       @$wrapper.removeAttr( "style" )
       @$slider.removeAttr( "style" )
-      @$slider.addClass( "more-revealed" )
+      # add "real" styles
+      @$slider.addClass( @OPEN_CLASS )
+
+    closeEnd: ->
+      # clear inline styles
+      @$wrapper.removeAttr( "style" )
+      @$slider.removeAttr( "style" )
+      @$heroMore.removeAttr( "style" )
+      @$iconWrapper.removeAttr( "style" )
+      @$heroTeaser.removeAttr( "style" )
+
 
 $(document).ready ->
   APP.init()
