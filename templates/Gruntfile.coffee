@@ -59,7 +59,7 @@ module.exports = (grunt) ->
 
       js:
         #i.e. src: ["js/libs/mediaCheck.js", "js/app.js"],
-        src: ["js/libs/*", "js/app.js"]
+        src: ["js/libs/util.js", "js/app.js"]
         #change this to a site specific name i.e. uwg.js or dty.js
         dest: "dist/js/<%= pkg.name %>.js"
 
