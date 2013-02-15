@@ -35,26 +35,39 @@ header{
   margin: 0;
   padding: 0;
   display: block;
-  @include rem("padding", .5, 0, 0, 3.5);
+  @include rem("padding", 1.2, 0, 0, 5);
   @include rem("margin-bottom", 2);
   position: relative;
 
   [data-icon]:before{
-    @include rem("padding", .5);
+    @include rem("padding", 1);
     display: block;
     position: absolute;
     top: 0;
     left: 0;
     background-color: $blue;
     color: black;
+    @include rem("font-size", 2.5);
+  }
+
+  .logo-text{
+    text-indent: -999em;
+    color: transparent;
+    background-image: url("../images/sparkbox-text-logo.svg");
+    background-repeat: no-repeat;
+    max-width: 144px;
+    -webkit-background-size: 100%;
+    background-size: 100%;
   }
 }
 
 nav{
   text-align: center;
+  @include rem("padding-bottom", 1);
   a{
     color: white;
     text-decoration: none;
+    @include rem("padding-right", .5);
 
     &:visited{
       color: white;
