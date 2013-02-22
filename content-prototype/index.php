@@ -19,7 +19,7 @@
   <p>Build right, and</p>
   <h1>Set Your Site Free.</h1>
   <img src="" alt="Hero imagery speaks to freedom." />
-  <p>From deep in the American heartland, <a href="team.php">our team of craftsmen</a> answers the call for a <a href="work.php">better web</a>. Driven by a deep belief in the freedom of a web liberated from device constraints, Sparkbox labors with conviction toward <a href="belief.php">a higher standard</a> as we <a href="foundry-blog.php">write</a>, <a href="foundry-calendar.php">educate</a>, and <a href="foundry-pursuits.php">build</a>.</p>
+  <p>Rooted in the American heartland, <a href="team.php">our team of craftsmen</a> answers the call for a <a href="work.php">better web</a>. Driven by deep conviction in a web liberated of device constraints, Sparkbox leads toward <a href="belief.php">a greater standard</a> as we <a href="foundry-blog.php">write</a>, <a href="foundry-calendar.php">educate</a>, and <a href="foundry-pursuits.php">build</a>.</p>
   <p>For the fluidity of your content, for the integrity of your vision, for the cause of a more durable web, we invite you to <a href="contact-0.php">join us</a>.</p>
 </section>
 
