@@ -14,6 +14,9 @@ window.APP =
     $chainIcon.click (e) ->
       APP.hero.toggle()
 
+    $("nav h3").on "click", (e) ->
+      $(this).siblings("ol").toggle()
+
   hero:
 
     OPEN_CLASS: "more-revealed"
