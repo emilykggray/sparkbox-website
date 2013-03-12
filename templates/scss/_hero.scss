@@ -181,12 +181,13 @@ Breakpoint - Non-media query browsers do NOT get styles inside media query:
   // but slides into view when revealed
   background: #cbf8ff;
   color: #265e67;
+  float: left;
+  width: 100%;
 
   .js & {
     // hide up out of view, out of flow
     position: absolute;
     bottom: 100%;
-    width: 100%;
   }
 
   .js .more-revealed & {
@@ -197,6 +198,7 @@ Breakpoint - Non-media query browsers do NOT get styles inside media query:
 
     @include breakpoint( 40em ){
       @include rem( padding-bottom, 8 );
+      display: table;
     }
   }
 }
@@ -215,6 +217,23 @@ Breakpoint - Non-media query browsers do NOT get styles inside media query:
   }
 
   @include breakpoint( 35em ){
-    margin-left: 50%;
+    display: table-cell;
+    vertical-align: middle;
+  }
+}
+
+.hero-seal {
+  background: #a3eaf5;
+  padding: 30px;
+  text-align: center;
+  @include breakpoint( 35em ){
+    display: table-cell;
+    vertical-align: middle;
+    width: 33.333%;
+  }
+
+  img {
+    width: 100%;
+    max-width: 210px;
   }
 }

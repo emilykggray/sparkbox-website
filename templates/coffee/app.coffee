@@ -32,7 +32,9 @@ window.APP =
       @$chainIcon = $(".chain-icon")
 
     toggle: ->
-      borderSize = parseInt( @$wrapper.css( "border-width" ) ) # border size, in pixels (for accurate height transitions)
+      topBorderSize = parseInt( @$wrapper.css( "border-top-width" ) )
+      bottomBorderSize = parseInt( @$wrapper.css( "border-bottom-width" ) )
+      totalBorderSize = topBorderSize + bottomBorderSize
 
       action = if @$slider.hasClass( @OPEN_CLASS ) then "closing" else "opening"
 
@@ -42,8 +44,12 @@ window.APP =
         moreHeight = @$heroMore.outerHeight()
         iconHeight = @$iconWrapper.outerHeight()
 
+        console.log topBorderSize
+        console.log bottomBorderSize
+        console.log totalBorderSize
+
         oldHeight = iconHeight + teaserHeight
-        newHeight = iconHeight + moreHeight + borderSize*2
+        newHeight = iconHeight + moreHeight + totalBorderSize
         offset = moreHeight
       else # it's closing
         teaserHeight = @$heroTeaser.outerHeight()
@@ -51,7 +57,7 @@ window.APP =
         iconHeight = @$iconWrapper.outerHeight()
 
         oldHeight = moreHeight
-        newHeight = iconHeight + teaserHeight + borderSize*2
+        newHeight = iconHeight + teaserHeight + totalBorderSize
         offset = moreHeight - iconHeight
 
       @$wrapper.height( oldHeight )
