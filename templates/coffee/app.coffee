@@ -5,6 +5,8 @@ window.APP =
     $( "#build-reveal" ).click ->
       $( "#build-header" ).toggleClass "bh-collapsed"
 
+    $("nav h3").on "click", (e) ->
+      $(this).siblings("ol").toggle()
   methodName: ->
 
   # Initializers
