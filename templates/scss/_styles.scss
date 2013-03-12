@@ -29,6 +29,10 @@ header{
   display: block;
   background-color: $black;
   color: white;
+
+  @include breakpoint(30.38em, $no-query:$nomq){
+    float:left;
+  }
 }
 
 .logo{
@@ -59,6 +63,11 @@ header{
     -webkit-background-size: 100%;
     background-size: 100%;
   }
+
+  @include breakpoint(30.38em, $no-query:$nomq){
+    float:left;
+    @include rem("margin-bottom", .89);
+  }
 }
 
 nav{
@@ -73,6 +82,11 @@ nav{
       color: white;
     }
   }
+
+  @include breakpoint(30.38em, $no-query:$nomq){
+    @include rem("margin-top", 1.7);
+  }
+
 }
 
 footer{
