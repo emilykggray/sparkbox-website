@@ -14,11 +14,6 @@ window.APP =
     $chainIcon.click (e) ->
       APP.hero.toggle()
 
-    $chainIcon.bind "mouseenter", ->
-      $( this ).addClass( "broken" )
-    $chainIcon.bind "mouseleave", ->
-      $( this ).removeClass( "broken" )
-
   hero:
 
     OPEN_CLASS: "more-revealed"
@@ -30,6 +25,7 @@ window.APP =
       @$heroTeaser = $( ".hero-teaser" )
       @$iconWrapper = $( ".icon-wrapper" )
       @$chainIcon = $(".chain-icon")
+      @$chainIcon.addClass( "hoverable" )
 
     toggle: ->
       topBorderSize = parseInt( @$wrapper.css( "border-top-width" ) )
@@ -95,6 +91,13 @@ window.APP =
       @$heroMore.removeAttr( "style" )
       @$iconWrapper.removeAttr( "style" )
       @$heroTeaser.removeAttr( "style" )
+
+      # remove class that allows hover styles
+      @$chainIcon.removeClass( "hoverable" )
+      $( document ).on "mousemove", =>
+        # re-add hoverability after mouse is moved
+        @$chainIcon.addClass( "hoverable" )
+        $( document ).off( "mousemove" )
 
 $(document).ready ->
   APP.init()

@@ -138,7 +138,10 @@
     display: inline-block;
     margin-left: -0.56em;
   }
-  &.broken, .more-revealed & {
+  &.broken, .more-revealed &, &.hoverable:hover {
+    // chain is broken when it has a class of broken,
+    // when it has an ancestor of .more-revealed
+    // or when it is hovered
     .chain-left {
       @include transform( translate3d( -0.1em, 0.05em, 0 ) rotate( -6deg ) );
     }
