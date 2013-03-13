@@ -44,10 +44,6 @@ window.APP =
         moreHeight = @$heroMore.outerHeight()
         iconHeight = @$iconWrapper.outerHeight()
 
-        console.log topBorderSize
-        console.log bottomBorderSize
-        console.log totalBorderSize
-
         oldHeight = iconHeight + teaserHeight
         newHeight = iconHeight + moreHeight + totalBorderSize
         offset = moreHeight
