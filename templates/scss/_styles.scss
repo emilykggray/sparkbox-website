@@ -46,6 +46,12 @@ header{
     background-color: $blue;
     color: black;
     @include rem("font-size", 2);
+
+    @include breakpoint($logo-visible, $no-query:$nomq){
+      @include rem("font-size", 2.5);
+      display: inline-block;
+      float:none;
+    }
   }
 
   .logo-text{
@@ -57,12 +63,17 @@ header{
     max-width: 144px;
     -webkit-background-size: 100%;
     background-size: 100%;
+
+    @include breakpoint($logo-visible, $no-query:$nomq){
+      display: inline-block;
+      width:100%;
+    }
   }
 
-  @include breakpoint(30.38em, $no-query:$nomq){
-    float:left;
-    @include rem("margin-bottom", .89);
-  }
+  // @include breakpoint(30.38em, $no-query:$nomq){
+  //   float:left;
+  //   @include rem("margin-bottom", .89);
+  // }
 }
 
 nav{
@@ -72,6 +83,7 @@ nav{
     list-style: none;
     padding:0;
     margin:0;
+    text-align: center;
     clear: both;
     @include rem("padding-top", .5);
 
@@ -86,6 +98,28 @@ nav{
     font-weight: normal;
     text-align: center;
     @include rem("padding-top", .7);
+    cursor: pointer;
+
+    [data-icon]:before{
+      position: relative;
+      top:4px;
+
+      @include breakpoint($logo-visible, $no-query:$nomq){
+        @include rem("font-size", 2.3);
+      }
+    }
+
+    @include breakpoint($logo-visible, $no-query:$nomq){
+      position: absolute;
+      top:0;
+      right:6%;
+    }
+  }
+
+  .menu-text{
+    @include breakpoint($logo-visible, $no-query:$nomq){
+      display: none;
+    }
   }
 
   li{
@@ -93,6 +127,14 @@ nav{
     margin-left: 5%;
     @include rem("padding", .3, 0, .3, 0);
     float:left;
+
+    &:nth-child(3), &:nth-child(4){
+      @include rem("padding-bottom", .7);
+    }
+
+    @include breakpoint($logo-visible, $no-query:$nomq){
+      width:auto;
+    }
   }
 
   a{
