@@ -28,3 +28,12 @@
     }
   }
 }
+
+@mixin sb-font(){
+  font-family: 'sb';
+  content: attr(data-icon);
+  speak: none;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+}
