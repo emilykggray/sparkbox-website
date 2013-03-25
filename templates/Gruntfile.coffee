@@ -130,7 +130,7 @@ module.exports = (grunt) ->
   grunt.registerTask "partials", [ "clean:partials", "concat:partials" ]
 
   # Clean, compile and concatenate JS
-  grunt.registerTask "javascript", [ "clean:javascript", "coffee", "concat:js" ]
+  grunt.registerTask "javascript", [ "clean:javascript", "coffee", "concat:js", "modernizr" ]
 
   # Clean and compile stylesheets
   grunt.registerTask "stylesheets", ["clean:stylesheets", "compass"]
