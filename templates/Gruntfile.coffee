@@ -58,13 +58,13 @@ module.exports = (grunt) ->
           "dist/global.html": ["partials/_header.html", "partials/_global-home.html", "partials/_footer.html"]
 
       js:
-        #i.e. src: ["js/libs/mediaCheck.js", "js/app.js"],
-        src: ["js/libs/util.js", "js/app.js"]
-        #change this to a site specific name i.e. uwg.js or dty.js
+        # first concatenate libraries, then our own JS
+        src: ["js/concat/*", "js/app.js"]
+        # put it in dist/
         dest: "dist/js/<%= pkg.name %>.js"
 
     modernizr:
-      devFile: "js/libs/modernizr-dev.js"
+      devFile: "js/no-concat/modernizr-dev.js"
       outputFile: "dist/js/libs/modernizr.min.js"
       extra:
         shiv: true
@@ -107,13 +107,17 @@ module.exports = (grunt) ->
         command: "mkdir -p dist/images; cp -R images/ dist/images/"
       copyFonts:
         command: "mkdir -p dist/fonts; cp -R fonts/ dist/fonts/"
+      copyJS:
+        #this copies non-concatenated js straight to dist/js
+        #(concatenated JS is put into place by concat:js
+        command: "mkdir -p dist/js; cp js/no-concat/* dist/js"
 
     jasmine:
       src: "dist/**/*.js"
       options:
         specs: "specs/js/*Spec.js"
         helpers: "specs/js/*Helper.js"
-        vendor: ["js/libs/jquery-1.9.0.min.js", "specs/lib/*.js"]
+        vendor: ["js/concat/jquery-1.9.0.min.js", "specs/lib/*.js"]
 
   grunt.loadNpmTasks "grunt-contrib-clean"
   grunt.loadNpmTasks "grunt-contrib-coffee"
@@ -130,7 +134,7 @@ module.exports = (grunt) ->
   grunt.registerTask "partials", [ "clean:partials", "concat:partials" ]
 
   # Clean, compile and concatenate JS
-  grunt.registerTask "javascript", [ "clean:javascript", "coffee", "concat:js", "modernizr" ]
+  grunt.registerTask "javascript", [ "clean:javascript", "coffee", "concat:js", "exec:copyJS" ]
 
   # Clean and compile stylesheets
   grunt.registerTask "stylesheets", ["clean:stylesheets", "compass"]
@@ -145,7 +149,7 @@ module.exports = (grunt) ->
   grunt.registerTask "docs", [ "styleguide", "exec:docco" ]
 
   # Production task
-  grunt.registerTask "prod", [ "modernizr", "default" ]
+  grunt.registerTask "prod", [ "default" ]
 
   # Default task
   grunt.registerTask "default", [ "partials", "javascript", "modernizr", "stylesheets", "images", "fonts" ]
