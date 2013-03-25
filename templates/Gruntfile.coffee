@@ -33,8 +33,8 @@ module.exports = (grunt) ->
 
     compass:
       dist:
-        files:
-          "dist/css/base.css": "scss/base.scss"
+        options:
+          config: "config.rb"
 
     coffee:
       compile:
