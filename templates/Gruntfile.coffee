@@ -9,32 +9,35 @@ module.exports = (grunt) ->
 
       stylesheets:
         files: "scss/*"
-        tasks: "compass"
+        tasks: "compass:dev"
 
       images:
         files: "images/*"
         tasks: "images"
-
-      fonts:
-        files: "fonts/*"
-        tasks: "fonts"
 
       partials:
         files: "partials/*"
         tasks: "partials"
 
       javascript:
-        files: ["coffee/*", "js/*/*.js"]
-        tasks: "javascript"
+        files: ["coffee/*", "js/libs/*.js"]
+        tasks: "javascript:dev"
 
-      #jsTesting:
-        #files: ["src/**/*.js", "specs/**/*.js"]
-        #tasks: "jasmine"
+      jsTesting:
+        files: "dist/js/*.js"
+        tasks: "jasmine"
+
+      rootDirectory:
+        files: [ "root-directory/**/*", "root-directory/.*" ]
+        tasks: "default"
 
     compass:
-      dist:
-        options:
-          config: "config.rb"
+        dev:
+          options:
+            environment: 'dev'
+        dist:
+          options:
+            environment: 'production'
 
     coffee:
       compile:
@@ -54,18 +57,15 @@ module.exports = (grunt) ->
           # destination as key, sources as value
           "dist/index.html": ["partials/_header.html", "partials/_build-header.html", "partials/_home-page.html", "partials/_footer.html"]
           "dist/hero.html": ["partials/_header.html", "partials/_hero.html", "partials/_footer.html"]
-
-          "dist/global.html": ["partials/_header.html", "partials/_global-home.html", "partials/_footer.html"]
-
       js:
-        #i.e. src: ["js/libs/mediaCheck.js", "js/app.js"],
-        src: ["js/libs/util.js", "js/app.js"]
-        #change this to a site specific name i.e. uwg.js or dty.js
+        #first concatenate libraries, then our own JS
+        src: ["js/concat/*", "js/app.js"]
+        #put it in dist/
         dest: "dist/js/<%= pkg.name %>.js"
 
     modernizr:
-      devFile: "js/libs/modernizr-dev.js"
-      outputFile: "dist/js/libs/modernizr.min.js"
+      devFile: "js/no-concat/modernizr.js"
+      outputFile: "dist/js/modernizr.js"
       extra:
         shiv: true
         printshiv: false
@@ -88,32 +88,30 @@ module.exports = (grunt) ->
       matchCommunityTests: false
 
     clean:
-      all: "dist/*"
-      partials: "dist/*.html"
+      all:
+        src: "dist/*"
+        dot: true # clean hidden files as well
+      html: "dist/*.html"
       stylesheets: "dist/css/*"
       javascript: "dist/js/*"
       images: "dist/images/*"
-      fonts: "dist/fonts/*"
-
-    styleguide:
-      dist:
-        files:
-          "docs/scss": "scss/*.scss"
 
     exec:
-      docco:
-        command: "docco -o docs/js/ js/*.js js/*.coffee"
       copyImages:
         command: "mkdir -p dist/images; cp -R images/ dist/images/"
-      copyFonts:
-        command: "mkdir -p dist/fonts; cp -R fonts/ dist/fonts/"
+      copyRootDirectory:
+        command: "cp -Rp root-directory/ dist/"
+      copyJS:
+        #this copies non-concatenated js straight to dist/js
+        #(concatenated JS is put into place by concat:js
+        command: "mkdir -p dist/js; cp js/no-concat/* dist/js"
 
     jasmine:
       src: "dist/**/*.js"
       options:
         specs: "specs/js/*Spec.js"
         helpers: "specs/js/*Helper.js"
-        vendor: ["js/libs/jquery-1.9.0.min.js", "specs/lib/*.js"]
+        vendor: ["js/concat/jquery-1.9.1.min.js", "specs/lib/*.js"]
 
   grunt.loadNpmTasks "grunt-contrib-clean"
   grunt.loadNpmTasks "grunt-contrib-coffee"
@@ -123,29 +121,29 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks "grunt-contrib-jasmine"
   grunt.loadNpmTasks "grunt-modernizr"
   grunt.loadNpmTasks "grunt-notify"
-  grunt.loadNpmTasks "grunt-styleguide"
   grunt.loadNpmTasks "grunt-exec"
 
-  # Clean and concatenate partials
-  grunt.registerTask "partials", [ "clean:partials", "concat:partials" ]
+  # Clean dist/ and copy root-directory/
+  # NOTE: this has to wipe out everything
+  grunt.registerTask "root-canal", [ "clean:all", "exec:copyRootDirectory" ]
+
+  # Clean and concatenate html files
+  grunt.registerTask "partials", [ "clean:html", "concat:partials" ]
 
   # Clean, compile and concatenate JS
-  grunt.registerTask "javascript", [ "clean:javascript", "coffee", "concat:js", "modernizr" ]
+  grunt.registerTask "javascript:dev", [ "clean:javascript", "coffee", "concat:js", "exec:copyJS" ]
+  grunt.registerTask "javascript:dist", [ "clean:javascript", "coffee", "concat:js", "modernizr" ]
 
   # Clean and compile stylesheets
-  grunt.registerTask "stylesheets", ["clean:stylesheets", "compass"]
+  grunt.registerTask "stylesheets:dev", ["clean:stylesheets", "compass:dev"]
+  grunt.registerTask "stylesheets:dist", ["clean:stylesheets", "compass:dist"]
 
   # Clean and copy images
   grunt.registerTask "images", [ "clean:images", "exec:copyImages" ]
 
-  # Clean and copy fonts
-  grunt.registerTask "fonts", [ "clean:fonts", "exec:copyFonts" ]
-
-  # Generate documentation
-  grunt.registerTask "docs", [ "styleguide", "exec:docco" ]
-
   # Production task
-  grunt.registerTask "prod", [ "modernizr", "default" ]
+  grunt.registerTask "dev", [ "root-canal", "partials", "javascript:dev", "stylesheets:dev", "images" ]
+  grunt.registerTask "dist", [ "root-canal", "partials", "javascript:dist", "stylesheets:dist", "images" ]
 
   # Default task
-  grunt.registerTask "default", [ "partials", "javascript", "modernizr", "stylesheets", "images", "fonts" ]
+  grunt.registerTask "default", "dev"
