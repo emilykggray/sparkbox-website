@@ -1,5 +1,4 @@
 (function() {
-
   describe("This App", function() {
     beforeEach(function() {
       return affix("#element-id");

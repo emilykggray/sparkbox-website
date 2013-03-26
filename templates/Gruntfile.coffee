@@ -13,11 +13,11 @@ module.exports = (grunt) ->
 
       images:
         files: "images/*"
-        tasks: "images"
+        tasks: "dev"
 
       partials:
         files: "partials/*"
-        tasks: "partials"
+        tasks: "concat:partials"
 
       javascript:
         files: ["coffee/*", "js/libs/*.js"]
@@ -41,6 +41,8 @@ module.exports = (grunt) ->
 
     coffee:
       compile:
+        # options:
+          # sourceMap: true
         files:
           "js/app.js": "coffee/app.coffee"
       glob_to_multiple:
@@ -63,9 +65,13 @@ module.exports = (grunt) ->
         #put it in dist/
         dest: "dist/js/<%= pkg.name %>.js"
 
+    uglify:
+      my_target:
+        files: "dist/js/<%= pkg.name %>.js": ["js/concat/*", "js/app.js"]
+
     modernizr:
-      devFile: "js/no-concat/modernizr.js"
-      outputFile: "dist/js/modernizr.js"
+      devFile: "root-directory/js/libs/modernizr.js"
+      outputFile: "dist/js/libs/modernizr.js"
       extra:
         shiv: true
         printshiv: false
@@ -91,20 +97,12 @@ module.exports = (grunt) ->
       all:
         src: "dist/*"
         dot: true # clean hidden files as well
-      html: "dist/*.html"
-      stylesheets: "dist/css/*"
-      javascript: "dist/js/*"
-      images: "dist/images/*"
 
     exec:
-      copyImages:
-        command: "mkdir -p dist/images; cp -R images/ dist/images/"
       copyRootDirectory:
         command: "cp -Rp root-directory/ dist/"
-      copyJS:
-        #this copies non-concatenated js straight to dist/js
-        #(concatenated JS is put into place by concat:js
-        command: "mkdir -p dist/js; cp js/no-concat/* dist/js"
+      sourceMapsCopy:
+        command: "cp -Rp coffee/ dist/js/coffee/ && cp js/<%= pkg.name %>.js.map dist/js/"
 
     jasmine:
       src: "dist/**/*.js"
@@ -122,28 +120,19 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks "grunt-modernizr"
   grunt.loadNpmTasks "grunt-notify"
   grunt.loadNpmTasks "grunt-exec"
+  grunt.loadNpmTasks "grunt-contrib-uglify"
 
   # Clean dist/ and copy root-directory/
   # NOTE: this has to wipe out everything
   grunt.registerTask "root-canal", [ "clean:all", "exec:copyRootDirectory" ]
 
-  # Clean and concatenate html files
-  grunt.registerTask "partials", [ "clean:html", "concat:partials" ]
-
   # Clean, compile and concatenate JS
-  grunt.registerTask "javascript:dev", [ "clean:javascript", "coffee", "concat:js", "exec:copyJS" ]
-  grunt.registerTask "javascript:dist", [ "clean:javascript", "coffee", "concat:js", "modernizr" ]
-
-  # Clean and compile stylesheets
-  grunt.registerTask "stylesheets:dev", ["clean:stylesheets", "compass:dev"]
-  grunt.registerTask "stylesheets:dist", ["clean:stylesheets", "compass:dist"]
-
-  # Clean and copy images
-  grunt.registerTask "images", [ "clean:images", "exec:copyImages" ]
+  grunt.registerTask "javascript:dev", [ "coffee", "concat:js"]
+  grunt.registerTask "javascript:dist", [ "coffee", "uglify", "modernizr" ]
 
   # Production task
-  grunt.registerTask "dev", [ "root-canal", "partials", "javascript:dev", "stylesheets:dev", "images" ]
-  grunt.registerTask "dist", [ "root-canal", "partials", "javascript:dist", "stylesheets:dist", "images" ]
+  grunt.registerTask "dev", [ "root-canal", "concat:partials", "javascript:dev", "compass:dev"]
+  grunt.registerTask "dist", [ "root-canal", "concat:partials", "javascript:dist", "compass:dist"]
 
   # Default task
   grunt.registerTask "default", "dev"
