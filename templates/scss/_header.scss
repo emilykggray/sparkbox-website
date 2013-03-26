@@ -84,10 +84,6 @@ nav{
       @include rem("padding-top", 1.7);
       width: 50%;
     }
-
-    @include sbmedia(47.50em){
-      width: 40%;
-    }
   }
 
   h3{
