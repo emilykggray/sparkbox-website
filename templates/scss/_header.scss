@@ -16,7 +16,7 @@ header{
   display: block;
   position: relative;
 
-  @include sbmedia($nav-can-fit){
+  @include sb-media($nav-can-fit){
     width: 50%;
     float: left;
   }
@@ -31,7 +31,7 @@ header{
     color: black;
     @include rem("font-size", 2);
 
-    @include sbmedia($logo-visible){
+    @include sb-media($logo-visible){
       @include rem("font-size", 3.2);
       display: inline-block;
       float:none;
@@ -48,7 +48,7 @@ header{
     -webkit-background-size: 100%;
     background-size: 100%;
 
-    @include sbmedia($logo-visible){
+    @include sb-media($logo-visible){
       display: inline-block;
       width:100%;
       position: relative;
@@ -72,12 +72,12 @@ nav{
     .js &{
       display: none;
 
-      @include sbmedia($nav-can-fit){
+      @include sb-media($nav-can-fit){
         display: block !important;
       }
     }
 
-    @include sbmedia($nav-can-fit){
+    @include sb-media($nav-can-fit){
       display: block;
       float: right;
       clear:none;
@@ -99,24 +99,24 @@ nav{
       position: relative;
       top:4px;
 
-      @include sbmedia($logo-visible){
+      @include sb-media($logo-visible){
         @include rem("font-size", 2.3);
       }
     }
 
-    @include sbmedia($logo-visible){
+    @include sb-media($logo-visible){
       position: absolute;
       top:0;
       right:3%;
     }
 
-    @include sbmedia($nav-can-fit){
+    @include sb-media($nav-can-fit){
       display: none;
     }
   }
 
   .menu-text{
-    @include sbmedia($logo-visible){
+    @include sb-media($logo-visible){
       display: none;
     }
   }
@@ -133,7 +133,7 @@ nav{
       @include rem("padding-bottom", .7);
     }
 
-    @include sbmedia($logo-visible){
+    @include sb-media($logo-visible){
       width:auto;
     }
   }

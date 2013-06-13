@@ -37,3 +37,21 @@
   line-height: 1;
   -webkit-font-smoothing: antialiased;
 }
+
+
+
+
+$no-mq-support: false !default;
+$serve-to-nomq-max-width: 56em;
+ 
+@mixin sb-media($query) {
+  @if $no-mq-support{
+    @if $query < $serve-to-nomq-max-width {
+      @content;
+    }
+  } @else {
+    @media ( 'min-width:' + $query ) {
+      @content;
+    }
+  }
+}

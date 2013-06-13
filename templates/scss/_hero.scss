@@ -30,7 +30,7 @@
   width: 100%;
   clear: both;
 
-  @include sbmedia( 45em ){
+  @include sb-media( 45em ){
     border: 30px solid #575757;
   }
 }
@@ -65,7 +65,7 @@
     bottom: 100%;
   }
 
-  @include sbmedia( 40em ){
+  @include sb-media( 40em ){
     padding: 0 50px 50px;
   }
 
@@ -78,10 +78,10 @@
     font-size: 1.2em;
     letter-spacing: 0.1em;
 
-    @include sbmedia( 25em ){
+    @include sb-media( 25em ){
       font-size: 2em;
     }
-    @include sbmedia( 55em ){
+    @include sb-media( 55em ){
       font-size: 3.5em;
     }
   }
@@ -102,7 +102,7 @@
   width: 100%;
   text-align: center;
   @include rem( height, 4 );
-  @include sbmedia( 40em ){
+  @include sb-media( 40em ){
     @include rem( padding-bottom, 8 );
   }
 
@@ -121,7 +121,7 @@
   color: #73c5d2;
   cursor: pointer;
   margin-top: -1.4em;
-  @include sbmedia( 40em ){
+  @include sb-media( 40em ){
     margin-top: -2em;
   }
 
@@ -151,7 +151,7 @@
       @include transform( translate3d( 0.1em, 0.05em, 0 ) rotate( 6deg ) );
     }
   }
-  @include sbmedia( 40em ){
+  @include sb-media( 40em ){
     [data-icon] {
       font-size: 140px;
     }
@@ -179,7 +179,7 @@
     position: static;
     @include rem( padding-bottom, 4 );
 
-    @include sbmedia( 40em ){
+    @include sb-media( 40em ){
       @include rem( padding-bottom, 8 );
       display: table;
     }
@@ -199,7 +199,7 @@
     color: inherit;
   }
 
-  @include sbmedia( 35em ){
+  @include sb-media( 35em ){
     display: table-cell;
     vertical-align: middle;
   }
@@ -209,7 +209,7 @@
   background: #a3eaf5;
   padding: 30px;
   text-align: center;
-  @include sbmedia( 35em ){
+  @include sb-media( 35em ){
     display: table-cell;
     vertical-align: middle;
     width: 33.333%;
