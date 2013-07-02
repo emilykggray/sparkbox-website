@@ -15,7 +15,7 @@
 
 <section>
   <h1>We Love To Help</h1>
-  <p>Thanks{, first name}, we'd love to help your team out. We regularly offer our advice on projects and teach internal teams.</p>
+  <p>Thanks, {first name}, we'd love to help your team out. We regularly offer our advice on projects and teach internal teams.</p>
   
   <label for="">What's the name of your organization?</label><br />
   <input type="text" name="organization" value="" /><br />
