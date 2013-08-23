@@ -42,7 +42,7 @@ header{
   display: block;
   position: relative;
 
-  @include breakpoint($nav-can-fit, $no-query:$nomq){
+  @include sb-media($nav-can-fit){
     width: 50%;
     float: left;
   }
@@ -56,7 +56,7 @@ header{
     color: black;
     @include rem("font-size", 2);
 
-    @include breakpoint($logo-visible, $no-query:$nomq){
+    @include sb-media($logo-visible){
       @include rem("font-size", 3.2);
       display: inline-block;
       float:none;
@@ -73,7 +73,7 @@ header{
     -webkit-background-size: 100%;
     background-size: 100%;
 
-    @include breakpoint($logo-visible, $no-query:$nomq){
+    @include sb-media($logo-visible){
       display: inline-block;
       width:100%;
       position: relative;
@@ -97,12 +97,12 @@ nav{
     .js &{
       display: none;
 
-      @include breakpoint($nav-can-fit, $no-query:$nomq){
+      @include sb-media($nav-can-fit){
         display: block !important;
       }
     }
 
-    @include breakpoint($nav-can-fit, $no-query:$nomq){
+    @include sb-media($nav-can-fit){
       display: block;
       float: right;
       clear:none;
@@ -110,7 +110,7 @@ nav{
       width: 50%;
     }
 
-    @include breakpoint(47.50em, $no-query:$nomq){
+    @include sb-media(47.50em){
       width: 40%;
     }
   }
@@ -127,24 +127,24 @@ nav{
       position: relative;
       top:4px;
 
-      @include breakpoint($logo-visible, $no-query:$nomq){
+      @include sb-media($logo-visible){
         @include rem("font-size", 2.3);
       }
     }
 
-    @include breakpoint($logo-visible, $no-query:$nomq){
+    @include sb-media($logo-visible){
       position: absolute;
       top:0;
       right:3%;
     }
 
-    @include breakpoint($nav-can-fit, $no-query:$nomq){
+    @include sb-media($nav-can-fit){
       display: none;
     }
   }
 
   .menu-text{
-    @include breakpoint($logo-visible, $no-query:$nomq){
+    @include sb-media($logo-visible){
       display: none;
     }
   }
@@ -161,7 +161,7 @@ nav{
       @include rem("padding-bottom", .7);
     }
 
-    @include breakpoint($logo-visible, $no-query:$nomq){
+    @include sb-media($logo-visible){
       width:auto;
     }
   }
