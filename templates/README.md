@@ -1,6 +1,8 @@
 project-init
 ===============
 
+# ** This needs updating based on new templating with handlebars/yaml **
+
 Our starting point for front-end development.
 
 Prerequisites:
