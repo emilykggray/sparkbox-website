@@ -1,0 +1,43 @@
+// Layout Styles
+header {
+	/*float: left;*/
+	width: 100%;
+}
+
+nav {
+	width: 100%;
+	/*float: left;*/
+	
+	ul, ol {
+		display: table;
+		width: 100%;
+	}
+
+	li {
+		width: auto;
+		text-align: center;
+		display: table-cell;
+	}
+
+	a {
+		display: block;		
+		width: 100%;
+	}
+}
+
+
+// Module Styles
+nav {
+	a {
+		color: #fff;
+		text-align: center;
+		font-size: .9em;
+		text-transform: uppercase;
+		padding: .75em 0;
+	}
+
+	ul, ol {
+		@extend %unstyled-list;
+	}
+}
+

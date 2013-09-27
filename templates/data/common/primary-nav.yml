@@ -1,0 +1,11 @@
+---
+class_name: primary
+menu:
+  - title: Work
+    target: "#"
+  - title: About
+    target: "#"
+  - title: Smartsites
+    target: "#"
+  - title: Foundry
+    target: "#"

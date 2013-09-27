@@ -21,15 +21,9 @@
 //   background: darkgray;
 // }
 
-%no-mp {
-  margin: 0;
+
+%unstyled-list {
   padding: 0;
-}
-
-%hidden-text {
-  @include hide-text;
-}
-
-%type-serif {
-  font-family: museo_slab_500regular, serif;
+  margin: 0;
+  list-style: none;
 }

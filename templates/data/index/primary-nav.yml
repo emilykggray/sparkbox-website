@@ -1,0 +1,5 @@
+---
+class_name: primary
+menu:
+  - title: Foundry Article
+    target: "foundry-article.html"

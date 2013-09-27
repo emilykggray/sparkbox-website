@@ -8,27 +8,38 @@ module.exports = (grunt) ->
     watch:
 
       stylesheets:
-        files: "scss/*"
+        files: "scss/**/*"
         tasks: "compass:dev"
 
+      livereload:
+        files: "dist/css/*"
+        options:
+          livereload: true
+
       images:
-        files: "images/*"
-        tasks: "dev"
+        files: "opt-imgs/*"
+        tasks: "optimizeImages"
 
       partials:
         files: "partials/*"
         tasks: "concat:partials"
+        options:
+          livereload:true
 
       javascript:
-        files: ["coffee/*", "js/libs/*.js"]
+        files: ["coffee/*", "js/*.js"]
         tasks: "javascript:dev"
 
       jsTesting:
         files: "dist/js/*.js"
         tasks: "jasmine"
 
-      rootDirectory:
-        files: [ "root-directory/**/*", "root-directory/.*" ]
+      cukes:
+        files: ["features/*.feature", "features/step_definitions/*.coffee"]
+        tasks: "cucumberjs"
+
+      publicDirectory:
+        files: [ "public/**/*" ]
         tasks: "default"
 
     compass:
@@ -41,40 +52,39 @@ module.exports = (grunt) ->
 
     coffee:
       compile:
-        # options:
-          # sourceMap: true
         files:
           "js/app.js": "coffee/app.coffee"
-      glob_to_multiple:
+      jasmine_specs:
         files: grunt.file.expandMapping(["specs/*.coffee"], "specs/js/", {
           rename: (destBase, destPath) ->
-            destBase + destPath.replace(/\.coffee$/, ".js").replace(/specs\//, "");
+            destBase + destPath.replace(/\.coffee$/, ".js").replace(/specs\//, "")
         })
 
     concat:
-      partials:
-        options:
-          process: true
-        files:
-          # destination as key, sources as value
-          "dist/index.html": ["partials/_header.html", "partials/_build-header.html", "partials/_home-page.html", "partials/_footer.html"]
-          "dist/hero.html": ["partials/_header.html", "partials/_hero.html", "partials/_footer.html"]
       js:
-        #first concatenate libraries, then our own JS
-        src: ["js/concat/*", "js/app.js"]
+        src: ["js/libs/*", "js/app.js"]
         #put it in dist/
         dest: "dist/js/<%= pkg.name %>.js"
 
-    uglify:
-      my_target:
-        files: "dist/js/<%= pkg.name %>.js": ["js/concat/*", "js/app.js"]
+    assemble:
+      options:
+        partials: "partials/*.hbs"
+        data: "data/common/*.yml"
+      foundryArticle:
+        src: ['partials/foundry-article.hbs']
+        dest: 'dist/foundry-article.html'
+      prototypeListing:
+        options:
+          data: "data/index/*.yml"        
+        src: ['partials/index.hbs']
+        dest: 'dist/index.html'
 
     modernizr:
-      devFile: "root-directory/js/libs/modernizr.js"
-      outputFile: "dist/js/libs/modernizr.js"
+      devFile: "dist/js/modernizr.js"
+      outputFile: "dist/js/modernizr.js"
       extra:
         shiv: true
-        printshiv: false
+        printshiv: true
         load: true
         mq: false
         cssclasses: true
@@ -98,18 +108,45 @@ module.exports = (grunt) ->
         src: "dist/*"
         dot: true # clean hidden files as well
 
-    exec:
-      copyRootDirectory:
-        command: "cp -Rp root-directory/ dist/"
-      sourceMapsCopy:
-        command: "cp -Rp coffee/ dist/js/coffee/ && cp js/<%= pkg.name %>.js.map dist/js/"
+    copy:
+      main:
+        files: [
+          expand: true
+          cwd:'public/'
+          src: ["**"]
+          dest: "dist/"
+        ]
+      img:
+        files: [
+          expand: true
+          cwd:'opt-imgs/'
+          src: ["**"]
+          dest: "dist/img"
+        ]
 
     jasmine:
-      src: "dist/**/*.js"
+      src: "dist/js/*.js"
       options:
         specs: "specs/js/*Spec.js"
         helpers: "specs/js/*Helper.js"
-        vendor: ["js/concat/jquery-1.9.1.min.js", "specs/lib/*.js"]
+        vendor: ["public/js/jquery-1.9.1.min.js", "specs/lib/*.js"]
+
+    cucumberjs: {
+      files: 'features',
+      options: {
+        steps: "features/step_definitions"
+      }
+    }
+
+    imageoptim:
+      files: ["opt-imgs"]
+      options:
+        imageAlpha:true
+
+    plato:
+      complexity:
+        files:
+          'reports/js-complexity': ['dist/**/*.js']
 
   grunt.loadNpmTasks "grunt-contrib-clean"
   grunt.loadNpmTasks "grunt-contrib-coffee"
@@ -117,22 +154,29 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks "grunt-contrib-compass"
   grunt.loadNpmTasks "grunt-contrib-concat"
   grunt.loadNpmTasks "grunt-contrib-jasmine"
+  grunt.loadNpmTasks "grunt-cucumber"
   grunt.loadNpmTasks "grunt-modernizr"
   grunt.loadNpmTasks "grunt-notify"
   grunt.loadNpmTasks "grunt-exec"
-  grunt.loadNpmTasks "grunt-contrib-uglify"
+  grunt.loadNpmTasks "grunt-plato"
+  grunt.loadNpmTasks "grunt-contrib-copy"
+  grunt.loadNpmTasks "grunt-imageoptim"
+  grunt.loadNpmTasks "assemble"
 
-  # Clean dist/ and copy root-directory/
   # NOTE: this has to wipe out everything
-  grunt.registerTask "root-canal", [ "clean:all", "exec:copyRootDirectory" ]
+  grunt.registerTask "root-canal", [ "clean:all", "copy:main", "copy:img"]
+
+  grunt.registerTask "optimizeImages", ["imageoptim", "copy:img"]
 
   # Clean, compile and concatenate JS
-  grunt.registerTask "javascript:dev", [ "coffee", "concat:js"]
-  grunt.registerTask "javascript:dist", [ "coffee", "uglify", "modernizr" ]
+  grunt.registerTask "javascript:dev", [ "coffee", "concat:js",  "jasmine", "cucumberjs", "plato" ]
+
+  grunt.registerTask "javascript:dist", [ "coffee", "concat:js", "modernizr", "jasmine", "cucumberjs" ]
 
   # Production task
-  grunt.registerTask "dev", [ "root-canal", "concat:partials", "javascript:dev", "compass:dev"]
-  grunt.registerTask "dist", [ "root-canal", "concat:partials", "javascript:dist", "compass:dist"]
+  grunt.registerTask "dev", [ "root-canal", "javascript:dev", "compass:dev", "assemble" ]
+
+  grunt.registerTask "dist", [ "root-canal", "javascript:dist", "compass:dist", "assemble" ]
 
   # Default task
   grunt.registerTask "default", "dev"

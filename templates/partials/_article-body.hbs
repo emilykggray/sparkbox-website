@@ -1,0 +1,134 @@
+<h1>Dissecting Design</h1>
+
+<p class="post-author">
+  <time datetime="2013-09-04">04 September 2013</time> | Posted by 
+  <a href="/foundry/author/ben_callahan" title="Foundry posts by Ben Callahan">Ben Callahan</a>
+</p>
+
+<img class="featured-image" src="/uploads/article_uploads/ben-post-9-3-13.jpg" alt="Dissecting Design">
+
+<p>
+<em>The chart above represents productivity over time in the design steps of establishing the aesthetic, solving the problem, and refining the solution.</em></p>
+<p>
+For some time now, the mystery of “designing in the browser” has haunted web designers around the world. <a href="http://twitter.com/malarkey">Andy Clarke</a> was the first person I remember <a href="http://www.stuffandnonsense.co.uk/blog/about/walls_come_tumbling_down_presentation_slides_and_transcript/">speaking about this</a>, but <a href="http://www.stuffandnonsense.co.uk/blog/about/time_to_stop_showing_clients_static_design_visuals/">since 2008</a>, this idea has <a href="http://24ways.org/2009/make-your-mockup-in-markup/">polarized</a> <a href="http://dbushell.com/2013/05/15/stifling-web-design/">our</a> <a href="http://www.sazzy.co.uk/2012/02/why-i-cant-design-in-the-browser/">industry</a>. At Sparkbox, we see designing in the browser as one of many tools needed to be successful in building for the web today. The question then becomes, “How do we <em>advance</em> design through a more collaborative web process given the tools we have at our disposal?” In order to make good decisions about our tooling, we need to dissect design.</p>
+
+<h2>Establish the Aesthetic</h2>
+<p>
+In the past few years, we’ve recognized the danger in jumping headfirst into full-comp design before we really understand the design direction. Other disciplines have recognized this for a long time—think mood boards in branding—and taken steps to ramp up their design effort. The goal here is to establish the basic building blocks we’ll use in the rest of the design process: things like color, type, texture, illustration style, photography treatment, iconography. Once these are established, the success rate for the rest of the process is greatly increased. There are a number of ways to do this on the web; let’s look at a few.</p>
+
+<h3>Style Comparisons</h3>
+<p>
+My friend, <a href="https://twitter.com/danielmall">Dan Mall</a>, shared this idea in <a href="https://speakerdeck.com/bencallahan/get-your-visual-style-on">our presentation</a> at the first <a href="http://artifactconf.com">Artifact Conference</a>. He’s also <a href="http://danielmall.com/articles/the-post-psd-era/">written about this idea in the context of working with a contractor</a> to build a new office space.</p>
+<blockquote>
+<p>
+I could create an illustration or a 3D rendering of what I want my new office to look like, but that doesn’t take advantage of [the contractor's] great ideas. It's dictation, not collaboration. Instead, I show him <a href="http://pinterest.com/danielmall/studio-ideas/">a Pinterest board</a> my wife and I created. I tell him that I love <a href="http://pinterest.com/pin/112801165638501811/">these beams</a> or <a href="http://pinterest.com/pin/112801165638503115/">this mix of materials</a> and we can have a conversation. I revise my ideas through his expertise, and vice versa.</p>
+</blockquote>
+<p>
+In the context of the web, we might start the conversation with our client by showing opposite variations of these basic building blocks, asking these kinds of questions:</p>
+<ul>
+<li>
+Would a dark site or a light site be better for your brand online?</li>
+<li>
+Would an illustrated style or photographic style work better?</li>
+<li>
+How about a flat look or a textured look?</li>
+</ul>
+<p>
+And, ideally, we don’t just ask these questions; we show them some options. In a matter of a few hours any reasonably talented designer can put together a presentation with opposing examples of these questions. Giving our clients a series of visual A/B options can often help us identify the appropriate direction very quickly.</p>
+<p>
+<img alt="Light or dark?" src="/uploads/article_uploads/light-dark.png" title="Light or dark?"> <img alt="Flat or textured?" src="/uploads/article_uploads/flat-texture.png" title="Flat or textured?"> <img alt="Illustration or photography?" src="/uploads/article_uploads/illustration-photo.png" title="Illustration or photography?"></p>
+
+<h3>Style Tiles</h3>
+<p>
+<a href="https://twitter.com/samanthatoy">Samantha Warren</a> introduced the idea of “a mood board for the web” when she created <a href="http://styletil.es">Style Tiles</a>. She defines them as:</p>
+<blockquote>
+<p>
+...a design deliverable consisting of fonts, colors and interface elements that communicate the essence of a visual brand for the web.</p>
+</blockquote>
+<p>
+She creates these in a static design tool and exports them as images for her clients to review. Often, she’ll create several for a specific project to present a variety of options, again with the goal of determining the design direction—establishing the aesthetic.</p>
+<p>
+<img alt="Style Tiles" src="/uploads/article_uploads/style-tile.png" title="Style Tiles"></p>
+
+<h3>Style Prototypes</h3>
+<p>
+<a href="/about/rob_tarr/">Rob Tarr</a> and I had an opportunity to hear Samantha present style tiles at SXSW Interactive in 2012. The concept made a lot of sense to us, but we left that presentation with the idea that this could just as easily be done in the browser. Shortly after, we started using <a href="http://seesparkbox.com/foundry/our_new_responsive_design_deliverable_the_style_prototype">style prototypes</a> at Sparkbox and have never looked back.</p>
+<p>
+<img alt="Style Prototype" src="/uploads/article_uploads/style-prototype.png" title="Style Prototype"> Essentially, these are very similar to a style tile, but built with HTML and CSS. We’re able to get the same benefits of style tiles, but with the added ability to show real web type, demonstrate more accurate color, and introduce the conversation about browser support very early in the process. We ask our clients to review them in their browser of choice, which means they can open them in old IE or on a small screen device—whatever they prefer. Not only are we establishing a solid design direction, we’re combatting the problems that static design deliverables introduce by managing the expectations of our clients. We have <a href="http://sparkbox.github.io/style-prototype/">several</a> of <a href="http://building.seesparkbox.com/style-prototype/">these</a> online for anyone to take and use or modify as they need.</p>
+<p>
+One additional benefit of doing this in the browser is that these style prototypes can evolve into <a href="https://github.com/pattern-lab/patternlab-php">pattern</a> <a href="http://patternry.com/">libraries</a> for your project. There are many benefits for providing your customers with a simple method to view all the components in their design system. <a href="https://twitter.com/davatron5000">Dave Rupert</a> said it best: <a href="http://daverupert.com/2013/04/responsive-deliverables/">we should be delivering “tiny bootstraps” to our customers</a>.</p>
+<h3>
+Guiding Decision Principle: Comfort</h3>
+<p>
+In evaluating what tools to use to establish the aesthetic of a web project, I believe the most important factor to consider is comfort. At this point in the process, you need to explore possible design directions <em>with</em> your client. Doing so in a comfortable way as you learn how to work with this specific customer can help establish a great foundation on which to build a long-term working relationship.</p>
+<p>
+Much of the conversation around design deliverables in responsive ends here. However, once we’ve established the aesthetic, there’s still a lot of work to do. Let’s talk about solving problems.</p>
+<h2>
+Solve the Problem</h2>
+<blockquote>
+<p>
+I’ve been amazed at how often those outside the discipline of design assume that what designers do is decoration. Good design is problem solving.</p>
+</blockquote>
+<p>
+This quote from <a href="https://twitter.com/veen">Jeffrey Veen</a> sums it up nicely—“good design is problem solving.” If you’re a designer, you know how true this is. The bulk of the <em>work</em> of design is done here, so we need to carefully evaluate the tools we’re using to solve design problems.</p>
+<h3>
+Static Design Tools</h3>
+<p>
+As I’ve had opportunity to ask people what tools they use to solve design problems, mostly the answer I get back is a static design tool. It’s really no wonder: people have been doing this for a long time—this is comfortable—and change is hard. There are always the standards: PhotoShop, Illustrator, InDesign. However, there are also a whole crop of new design tools that cost (and do) less than the suite from Adobe. <a href="http://www.flyingmeat.com/acorn/">Acorn</a>, <a href="http://www.pixelmator.com/">Pixelmator</a>, and <a href="http://bohemiancoding.com/sketch/">Sketch</a> are just a few. These newer static design tools tend to cost less than $100 and brag about their “non-bloated” feature sets.</p>
+<p>
+Also, most designers still rely on paper and pencil (or whiteboard and dry-erase marker) to quickly convey their ideas. We do this quite a bit at Sparkbox, and I often find myself taking pictures of whiteboards to save these ideas with the rest of the project files. This can be a fantastic way to iterate on design ideas in a collaborative setting, and it’s an indispensable part of our process.</p>
+<h3>
+RWD-Specific Tools</h3>
+<p>
+There is a new crop of “responsive design tools” on the market now as well. Adobe has been touting <a href="http://html.adobe.com/edge/reflow">Adobe Edge Reflow</a> as a tool to “design the responsive web.” <a href="http://froont.com/">Froont</a> is a web-based, drag-and-drop interface for creating responsive HTML and CSS. And more recently, <a href="http://macaw.co/">Macaw</a> made quite a splash, encouraging us to “stop writing code” and to “start drawing it.”</p>
+<p>
+<img alt="Adobe Edge Reflow" src="/uploads/article_uploads/reflow.png" title="Adobe Edge Reflow"> Most of these tools are a hybrid of pixel-pusher and text editor. They allow you to create grids, set breakpoints, import and manipulate assets, and export HTML and CSS when you’re done. They also allow you to control the style of elements using the properties of CSS that you’re probably familiar with.</p>
+<p>
+<img alt="Froont" src="/uploads/article_uploads/froont.png" title="Froont"> The kind of feedback I’ve generally heard about these tools so far is that they’re great for rapid prototyping but not ready for generating production code. I do believe that our industry’s obsession with “handcrafted” code is hugely beneficial but also that it precludes us from giving these tools a fair shake. Regardless, it’s quite exciting to see people striving to solve the problem of flexible design with a UI that hopes to even the playing field. So far, in my opinion, there’s no substitute for knowing the intricacies of CSS and being intentional about how it’s written and structured.</p>
+<h3>
+In-Browser</h3>
+<p>
+Finally, some are able to jump into their favorite editor and solve design problems with text. Combine a fantastic text editor like <a href="http://www.sublimetext.com/2">Sublime Text</a>, <a href="http://www.vim.org/">VIM</a>, <a href="http://panic.com/coda/">Coda</a>, or <a href="http://macrabbit.com/espresso/">Espresso</a> with a modern browser, and—in the hands of the right person—magic can be made.</p>
+<p>
+<img alt="Sublime Text" src="/uploads/article_uploads/sublime.png" title="Sublime Text"> Throw in the developer tools shipping with those browsers and a front-end <a href="http://getbootstrap.com/">developer</a> <a href="http://foundation.zurb.com/">framework</a> or two, and this becomes a seriously legitimate option.</p>
+<p>
+<img alt="Twitter Bootstrap" src="/uploads/article_uploads/bootstrap.png" title="Twitter Bootstrap"></p>
+<h3>
+Guiding Decision Principle: Fluency</h3>
+<p>
+I believe many people in our industry struggle with “design in the browser” simply because they aren’t fluent with the tools needed for working that way. I’ve heard many people say, “<a href="http://badassideas.com/web-design-in-photoshop-or-the-browser-a-polarizing-topic/#comment-1065">Happy accidents</a> don’t happen in code like they do in PhotoShop.” I can testify that this is <em>absolutely</em> not true. Instead, I believe it’s about where you are the most fluent.</p>
+<p>
+As we evaluate the best tools for the monumental task of problem solving in design, I keep coming back to the ideal of fluency as a solid principle on which to base the decision. You can’t write poetry in a language you don’t speak. Similarly, you can’t craft design using tools you’re not fluent with.</p>
+<p>
+It’s also important to draw a distinction in the “solving problems” mode of design between solving layout problems and solving component problems. <a href="http://bradfrostweb.com/blog/post/atomic-web-design/">Brad Frost has written about this recently</a> and <a href="http://vimeo.com/32143919">others before him</a> (check out 34 minutes in). We do draw this distinction at Sparkbox. I’ve seen that we do a lot of hand sketching in our early thinking about layout, whereas we tend to use static design tools (currently PhotoShop or Sketch) to work through design for modules. What’s primarily important is that you solve design problems where you, your team, your project, and your client need to.</p>
+<h2>
+Refine the Solution</h2>
+<p>
+At some point in designing for the web we cross the threshold of problem solving and shift into the refinement of the solution. On charts like this, it’s usually called the long tail, and it can go on forever if you let it. Designers, in particular, will move pixels around, shifting and tweaking their design until it’s perfect. I’m <em>not</em> suggesting that this care for the detail of a UI is not critical, only that we <em>must</em> shift into the final medium—the browser—when this refinement takes place. Otherwise, we’ll have to refine twice, and most people don’t want to pay for/waste that time. In order to combat this waste of time, we’ve made a conscious shift toward design pairing.</p>
+<h3>
+Design Pairing</h3>
+<p>
+At the time of this writing, we have 20 people working regularly in our office. By title, we have one designer, our <a href="http://seesparkbox.com/about/jeremy_loyd/">Creative Director Jeremy Loyd</a>. Jeremy sets the design direction and begins the design problem solving for every project we have. Then, he pairs with our front-end developers to carry out the design in code.</p>
+<p>
+<img alt="Design Pairing" src="/uploads/article_uploads/pairing(1).jpg" title="Design Pairing"> We also happen to believe that front-end developers must have a very keen design sense, and so this is part of how we hire for that role. This gives Jeremy the ability to trust that his design intent will be honored as new problems are solved in the browser. Then, when it’s time to refine the solution, Jeremy can work very closely with our front-end team to refine <em>in the final medium</em>.</p>
+<h3>
+Guiding Decision Principle: Efficiency</h3>
+<p>
+We have based our decision to avoid static design tools during solution refinement because of a desire to be efficient with our time. As the graph above indicates, this takes a lot of time with a small amount of actual change (even though the value of that change is arguably high). Because of this, efficiency is a critical factor in determining what methods to use for refining your design solution.</p>
+<p>
+Unfortunately, understanding the impact this can have on efficiency doesn’t make it any easier to determine when you’re switching from solving the problem to refining the solution. The ability to recognize this switch is something that must be learned. And, it’s not easy for anyone other than the designer to tell, which means it takes trust on the part of the team and discipline on the part of the designer. In the end, it’s absolutely worth the learning—your customers will appreciate the added efficiency, and your team will enjoy shipping faster.</p>
+<h2>
+Your Process for Your People</h2>
+<p>
+I’m constantly reminding myself that these kinds of articles can be dangerous. What I’ve documented above is what’s working for Sparkbox today, but every project is different. Many times, we find ourselves veering from these guidelines simply because of a customers budget or timeline. With so many factors to consider, there is a level of <a href="http://seesparkbox.com/foundry/group_improvisation">improvisation</a> needed to figure out what is appropriate at any given time. Taking into consideration the project, client, timeline, budget, stakeholders, and team members will help you clarify the ideal way to approach design on any given job.</p>
+<p>
+Seeing the separate modes of design as somewhat distinct activities opens up the possibility of combining tools to be the most effective and efficient. We’re always looking for ways to improve, and we’re hopeful that sharing what we’ve learned is helpful for you.</p>
+<p>
+Have other ideas on how to handle design in the flexibly complex world of web design? We’d love to hear!</p>
+
+
+<!--  -->
+
+<!--  ***************************************************** FOUNDRY POST:PICTURE *** -->
+
+</div>

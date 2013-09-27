@@ -1,3 +1,15 @@
+@mixin sb-media($query) {
+  @if $no-mq-support{
+    @if $query < $serve-to-nomq-max-width{
+      @content;
+    }
+  } @else {
+    @media ( 'min-width:' + $query ) {
+      @content;
+    }
+  }
+}
+
 @mixin rem( $property, $a:0, $b:$a, $c:$a, $d:$b ) {
   @if ( $property == "font-size" ) {
     // $a is the font size
@@ -25,33 +37,6 @@
     } @else {
       #{$property}: $apx;
       #{$property}: $arem;
-    }
-  }
-}
-
-@mixin sb-font(){
-  font-family: 'sb';
-  content: attr(data-icon);
-  speak: none;
-  font-weight: normal;
-  line-height: 1;
-  -webkit-font-smoothing: antialiased;
-}
-
-
-
-
-$no-mq-support: false !default;
-$serve-to-nomq-max-width: 56em;
- 
-@mixin sb-media($query) {
-  @if $no-mq-support{
-    @if $query < $serve-to-nomq-max-width {
-      @content;
-    }
-  } @else {
-    @media ( 'min-width:' + $query ) {
-      @content;
     }
   }
 }
