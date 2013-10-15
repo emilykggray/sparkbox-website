@@ -1,43 +1,98 @@
 // Layout Styles
-header {
-	/*float: left;*/
+header { 				// Probably doesn’t belong here
+	float: left;
 	width: 100%;
 }
 
 nav {
 	width: 100%;
-	/*float: left;*/
+	float: left;
 	
+
 	ul, ol {
-		display: table;
+		display: block;
+		float: left;
 		width: 100%;
+		margin: 0;
+		padding: 1em 0;
+
+		@include sb-media(60em) {  // is 60em right?
+			display: table;
+			width: 100%;
+		}
 	}
 
 	li {
-		width: auto;
-		text-align: center;
-		display: table-cell;
+		display: block;
+
+		@include sb-media (60em) {  // is 60em right?
+			width: auto;
+			display: table-cell;
+			font-size: 1em;
+		}
 	}
 
 	a {
 		display: block;		
 		width: 100%;
 	}
+
+	.show-nav {
+    position: absolute;
+    top: 1.4em;
+    right: 0;
+		margin-right: 5%;
+    padding: 0;
+	}
+
+	.nav-topLevel {
+		width: 100%;
+		float: left;
+	}
 }
 
 
 // Module Styles
 nav {
-	a {
-		color: #fff;
+	.clickable {
 		text-align: center;
-		font-size: .9em;
+		font-size: .7em;
 		text-transform: uppercase;
 		padding: .75em 0;
 	}
 
 	ul, ol {
 		@extend %unstyled-list;
+	}
+
+	li {
+		text-align: center;
+
+		@include sb-media (60em) {  // is 60em right?
+			font-size: 1em;
+		}
+	}
+
+/*	.js & .nav {
+		display: none;
+	}*/
+
+/*	.no-js & .show-nav {
+		display: none;
+	}*/
+
+
+	.nav {
+		.nav-topLevel {
+			/*background-color: gray;*/
+
+			a {
+				font-size: 1.75em;
+				padding: .75em 0;
+				color: #1C4C54;
+				text-transform: uppercase;
+			}
+		}
 	}
 }
 

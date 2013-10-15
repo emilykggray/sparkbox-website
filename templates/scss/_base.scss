@@ -5,19 +5,30 @@ html, head {
 body {
 	background-color: #EAFCFF;
 	margin: 0 auto;
-
+	float: left;
+  width: 100%;
 	font-family: sans-serif;
 }
 
-a {
-	text-decoration: none;
-
-	&:hover {
-		text-decoration: underline;
-	}
+a, .clickable {
+  @extend %clickable;
 }
 
 header {
-	background-color: #252525;
 	color: #fff;
+}
+
+
+.l-colWrapper {
+	margin: 0 4%;
+	float: left;
+	line-height: 1.4em;
+
+  @include sb-media(28em) {
+    margin: 0 8%;
+  }
+
+  @include sb-media(45em) {
+    margin: 0 8% 0 28%;
+  }
 }

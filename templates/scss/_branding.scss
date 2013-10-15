@@ -1,0 +1,28 @@
+// Layout Styles
+.branding {
+	width: 100%;
+	float: left;
+
+	a {
+		display: block;
+		padding-right: 20px;
+	}
+
+	img {
+		display: block;
+		max-width: 235px;
+		min-width: 140px;
+	}
+}
+
+
+
+// Module Styles
+.branding {
+	background-color: #252525;
+
+	img {
+		width: 100%;
+		height: auto;
+	}
+}

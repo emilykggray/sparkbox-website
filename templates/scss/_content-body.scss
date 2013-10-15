@@ -1,0 +1,90 @@
+// Layout
+.content-header {
+
+  @include sb-media(45em) {
+    position: relative;
+  }
+}
+
+.content-body {
+  margin-top: 1em;
+}
+
+
+// Module
+.content h1 {
+  line-height: 1em;
+  margin-bottom: 0;
+}
+
+.content img {
+	max-width: 100%;
+}
+
+.post-author {
+  text-transform: uppercase;
+  font-size: .9em;
+  color: #3EA9BE;
+  margin-top: .5em;
+
+  a {
+    color: #3EA9BE;
+    text-decoration: underline;
+  }
+
+  br {
+    display: none;
+  }
+
+  @include sb-media(45em) {
+    // should this go in the layout section?
+    position: absolute;
+    bottom: -1em;
+    margin-left: -35%;
+
+    br {
+      display: block;
+    }
+  }
+}
+
+.content-isSummaryView {
+  h2, h3 {
+    position: relative;
+    padding-left: 1.4em;
+    line-height: 1.4em;
+  }
+
+  h3 {
+    margin-left: 1em;
+  }
+
+  h4 {
+    margin-left: 2em;
+  }
+
+  h2:before, h3:before {
+    content: "+";
+    display: block;
+    position: absolute;
+    left: 0;
+    top: .2em;
+    color: #4D7880;
+    background-color: #C9EDF2;
+    width: 1.3em;
+    height: 1.3em;
+    line-height: 1.3em;
+
+    text-align: center;
+    font-size: .8em;
+    @extend %clickable;
+  }
+
+  p, ul, ol {
+    display: none;
+  }
+
+  p img {
+    display: block;
+  }
+}
